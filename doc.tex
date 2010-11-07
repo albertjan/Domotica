@@ -14,12 +14,16 @@ The idea is that it will be posibile to easily talk to different homegrown domot
 \end{itemize}
 \section{Basics}
 Just basics that we'll need. To talk to these things. 
+
 \subsection{Input}
 Something that takes input. Like a button or a heat sensor or a camera looking for smoke signals over a hill in the distance.
+
 \subsection{Endpoints}
 A lamp. A Pump. A Lock. Lamps could probably have an on/off setting or a min max and a value property to specify the brightness, or the speed of a motor. 
+
 \subsection{Connection}
 Connecting an (Input)Button to a (Endpoint)Lamp. So to turn on a lamp we'd need an Input with a Connection to an Endpoint. But you're getting the feeling that this is a bit too straight foreward. We need a MoronInterfaceParser the MIP. 
+
 \subsection{MIP (MoronInterfaceParser)}
 A few things need to be clear. We want to more with a button than to turn on a light. We want to turn more lights on. Maybe schedule lights to go off. Maybe if we press it twice we'd want all the lights to go off. 
 
@@ -30,23 +34,23 @@ Examples pseudocode (the idea is to use the dlr) these are just syntactical blup
 Example 1 turn lamp on on button touch:
 \begin{verbatim}
 when().input("ButtonInLivingRoomNearFrontDoor").receives(Touch)
-	.set().endPoint("LightUnderTheFloor")
-	.at(1)
+    .set().endPoint("LightUnderTheFloor")
+    .at(1)
 \end{verbatim}
 
 Example dim lamp down on on button hold:
 \begin{verbatim}
 while().input("ButtonInLivingRoomNearFrontDoor").receives(Hold)
-	.set().endPoint("LightUnderTheFloor")
-	.decrease(1)
+    .set().endPoint("LightUnderTheFloor")
+    .decrease(1)
 \end{verbatim}
 
 Example dim lamp up on on button touch then hold:
 \begin{verbatim}
 when().input("ButtonInLivingRoomNearFrontDoor").receives(Touch)
-	.thenWhile().input("ButtonInLivingRoomNearFrontDoor")
-	.receives(Hold)
-	.increase(1)
+     .thenWhile().input("ButtonInLivingRoomNearFrontDoor")
+     .receives(Hold)
+     .increase(1)
 \end{verbatim}
  
 \subsection{Scheduling/Timer}
@@ -54,4 +58,5 @@ Set an endpoint to receive a signal at a specific time. Maybe be able to record 
 
 \subsection{MIPRecorder}
 Like I said before. To record on not to record that'll be the question with this one. This will enable you to record what was on when it was on and when it went of. You'll be able to replay it. guess the amout of power consumed. Prove your aliby to the police. And all the unholy things the cia'd be able to do with it.
+
 \end{document}
