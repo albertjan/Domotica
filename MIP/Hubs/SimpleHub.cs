@@ -5,6 +5,6 @@ namespace MIP.Hubs
 {
     public class SimpleHub : IHub
     {
-        public IList<IConnection> Connection { get; set; }
+        public IList<IConnection> RegisteredConnections { get; set; }
     }
 }

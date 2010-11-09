@@ -4,6 +4,6 @@ namespace MIP.Interfaces
 {
     public interface IHub
     {
-        IList<IConnection> Connection { get; set; }
+        IList<IConnection> RegisteredConnections { get; set; }
     }
 }
