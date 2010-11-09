@@ -1,7 +1,8 @@
-namespace MIP
+namespace MIP.Interfaces
 {
-    public class IEndpoint
+    public interface IEndpoint
     {
-        private IConnection ConnectedTo { get; set; }
+        IConnection ConnectedTo { get; set; }
+        string Name { get; set; }
     }
 }

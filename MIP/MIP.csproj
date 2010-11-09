@@ -5,7 +5,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>0b25d231-500a-4971-ada4-4237743dc596</ProjectGuid>
+    <ProjectGuid>{599FD624-A5E4-4F0F-896B-C91C11E5EE91}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>MIP</RootNamespace>
@@ -40,7 +40,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
+    <Compile Include="Hubs\SimpleHub.cs" />
+    <Compile Include="Interfaces\IConnection.cs" />
+    <Compile Include="Interfaces\IEndpoint.cs" />
+    <Compile Include="Interfaces\IHub.cs" />
+    <Compile Include="Interfaces\IInputEndpoint.cs" />
+    <Compile Include="Interfaces\IOutputEndpoint.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

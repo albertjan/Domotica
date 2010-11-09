@@ -1,8 +1,9 @@
-namespace MIP
+namespace MIP.Interfaces
 {
     public interface IConnection
     {
-        IInput Input { get; set; }
-        IEndpoint Output { get; set; }
+        IHub Via { get; set; }
+        IEndpoint Endpoint { get; set; }
+        void Register();
     }
 }

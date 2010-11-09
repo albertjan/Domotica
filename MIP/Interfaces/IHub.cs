@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace MIP
+namespace MIP.Interfaces
 {
     public interface IHub
     {
