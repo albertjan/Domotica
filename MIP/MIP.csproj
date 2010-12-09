@@ -43,6 +43,7 @@
     <Compile Include="Hubs\SimpleHub.cs" />
     <Compile Include="Interfaces\IConnection.cs" />
     <Compile Include="Interfaces\IEndpoint.cs" />
+    <Compile Include="Interfaces\IEndpointState.cs" />
     <Compile Include="Interfaces\IHub.cs" />
     <Compile Include="Interfaces\InputEndpoint.cs" />
     <Compile Include="Interfaces\IOutputEndpoint.cs" />
