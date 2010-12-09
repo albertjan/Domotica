@@ -1,5 +1,6 @@
 \documentclass[a4paper]{article}
 \usepackage[dutch]{babel}
+\usepackage{url}
 \author{Albert-Jan Nijburg}
 \title{Domotica Packages\\Codename: Pear}
 \begin{document}
@@ -27,16 +28,9 @@ Connecting an (Input)Button to a (Endpoint)Lamp. So to turn on a lamp we'd need 
 \subsection{MIP (MoronInterfaceParser)}
 A few things need to be clear. We want to more with a button than to turn on a light. We want to turn more lights on. Maybe schedule lights to go off. Maybe if we press it twice we'd want all the lights to go off. 
 
-So now we have an Input                                                
+So now we have an Input with a Connection to the MIP which has a Connection to an Endpoint. Now we need a way to tell the MIP what we want to do when the Input receives input. To do this the MIP will have modules small (SMALL!) dynamic scripts that that tell the MIP what to do. 
 
-
-
-
-
-
-with a Connection to the MIP which has a Connection to an Endpoint. Now we need a way to tell the MIP what we want to do when the Input receives input. To do this the MIP will have modules small (SMALL!) dynamic scripts that that tell the MIP what to do. 
-
-Examples pseudocode (the idea is to use the dlr) these are just syntactical blups to give an idea of how to do this. But these are the kinds of things you'd want to be able to do.
+Examples pseudocode (the idea is to use the dlr) these are just syntactical blurps to give an idea of how to do this. But these are the kinds of things you'd want to be able to do.
 
 Example 1 turn lamp on on button touch:
 \begin{verbatim}
@@ -66,4 +60,19 @@ Set an endpoint to receive a signal at a specific time. Maybe be able to record 
 \subsection{MIPRecorder}
 Like I said before. To record on not to record that'll be the question with this one. This will enable you to record what was on when it was on and when it went of. You'll be able to replay it. guess the amout of power consumed. Prove your aliby to the police. And all the unholy things the cia'd be able to do with it.
 
+\section{HAL (Hardware AccessLayer)}
+Hardware needs to talk to the MIP. Endpoint hardware needs to talk to IEndPoint implementations in the MIP. There could in general be multiple endpoint implementation for one hardware endpoint, E.g. you could have a pulse switch and a flip switch, both could very likely work the same way as far as the hardware in concerned, but in software you'd need to handle these things completely different. 
+
+\subsection {General outline (restrictions)}
+What are the messages that would be sent between the two systems. It shouldn't really matter how I see some change in the state of the hardware. We can safely say every piece hardware endpoint has an ID, and a capability.
+
+A contact closure endpoint always needs to be mapped to \texttt{IInputEndpoint} and a Relay always needs to be mapped to a \texttt{IOuputEndPoint}. 
+
+Every piece of hardware must identify wether it has input and/or output capabilities.
+
+\subsection {NonBlockingIO and Asynchronous State}
+
+Output behavoir should always be implemented in a NonBlocking way we wouldn't want the whole house to wait when there's a slow reacting piece of hardware.
+
+	Input behaviour should always be implemented using Observer pattern. i.e. implementing the \texttt{IObservable<T>} interface. \url{http://msdn.microsoft.com/en-us/library/dd783449.aspx}. Maybe there could be one Observer observing many Inputs implementing \texttt{IObservable<T>}.
 \end{document}
