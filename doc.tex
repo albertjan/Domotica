@@ -72,7 +72,7 @@ Every piece of hardware must identify wether it has input and/or output capabili
 
 \subsection {NonBlockingIO and Asynchronous State}
 
-Output behavoir should always be implemented in a NonBlocking way we wouldn't want the whole house to wait when there's a slow reacting piece of hardware.
+Output behavoir should always be implemented in a NonBlocking way we wouldn't want the whole house to wait when there's a slow reacting piece of hardware. Outputs could also implement the \textt{IObervable<T>} observing the status of the relays.
 
-	Input behaviour should always be implemented using Observer pattern. i.e. implementing the \texttt{IObservable<T>} interface. \url{http://msdn.microsoft.com/en-us/library/dd783449.aspx}. Maybe there could be one Observer observing many Inputs implementing \texttt{IObservable<T>}.
+Input behaviour should always be implemented using Observer pattern. i.e. implementing the \texttt{IObservable<T>} interface. \url{http://msdn.microsoft.com/en-us/library/dd783449.aspx}. Maybe there could be one Observer observing many Inputs implementing \texttt{IObservable<T>}.
 \end{document}
