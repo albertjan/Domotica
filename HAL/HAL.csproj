@@ -40,7 +40,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="EndPointCouplingInformation.cs" />
+    <Compile Include="EventHandlers.cs" />
+    <Compile Include="IHardwareController.cs" />
+    <Compile Include="IHardwareEndpointIndentifiers.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MIP\MIP.csproj">
+      <Project>{599FD624-A5E4-4F0F-896B-C91C11E5EE91}</Project>
+      <Name>MIP</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
