@@ -4,6 +4,6 @@ namespace MIP.Interfaces
 {
     public interface IEndpointState
     {
-        IEnumerator<IEndpointState> EnumerateStates();
+        IEnumerable<IEndpointState> States { get; set; }
     }
 }
