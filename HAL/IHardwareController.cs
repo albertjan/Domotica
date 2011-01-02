@@ -8,10 +8,12 @@ namespace HAL
 {
     public interface IHardwareController
     {
+        void Initialize();
+
         event EventHandlers.EndpointEventHandler EndpointStateChanged;
 
         void CoupleEndpoints(IEnumerable<IEndpoint> endpoints, EndPointCouplingInformation endPointCouplingInformation);
 
-        IEnumerable<IHardwareEndpointIndentifiers> GetIdentifiers();
+        IEnumerable<IHardwareEndpointIndentifier> GetIdentifiers();
     }
 }

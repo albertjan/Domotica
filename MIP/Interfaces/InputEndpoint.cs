@@ -1,3 +1,5 @@
+using System;
+
 namespace MIP.Interfaces
 {
     public abstract class InputEndpoint : IEndpoint
@@ -6,6 +8,8 @@ namespace MIP.Interfaces
 
         public event InputReveiced InputReceived;
 
+        public IEndpointState State { get; set; }
+        
         public abstract IConnection ConnectedTo { get; set; }
         public abstract string Name { get; set; }
     }

@@ -5,11 +5,11 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{1581955F-C093-4442-AC9D-B4654F6353CB}</ProjectGuid>
+    <ProjectGuid>{CBB2A70A-B33F-437E-AE0D-5C69A914E22E}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>HAL</RootNamespace>
-    <AssemblyName>HAL</AssemblyName>
+    <RootNamespace>NCD</RootNamespace>
+    <AssemblyName>NCD</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -40,13 +40,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="EndPointCouplingInformation.cs" />
-    <Compile Include="EventHandlers.cs" />
-    <Compile Include="IHardwareController.cs" />
-    <Compile Include="IHardwareEndpointIndentifier.cs" />
+    <Compile Include="BasicConfiguration.cs" />
+    <Compile Include="NCDHardwareIdentifier.cs" />
+    <Compile Include="NDCController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RelayBank.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\HAL\HAL.csproj">
+      <Project>{1581955F-C093-4442-AC9D-B4654F6353CB}</Project>
+      <Name>HAL</Name>
+    </ProjectReference>
     <ProjectReference Include="..\MIP\MIP.csproj">
       <Project>{599FD624-A5E4-4F0F-896B-C91C11E5EE91}</Project>
       <Name>MIP</Name>
