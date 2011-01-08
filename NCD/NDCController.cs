@@ -22,6 +22,8 @@ namespace NCD
             }
         }
 
+        public EndPointCouplingInformation CouplingInformation { get; set; }
+
         public event EventHandlers.EndpointEventHandler EndpointStateChanged;
 
         public IEnumerable<IHardwareEndpointIndentifier> GetIdentifiers()
@@ -49,9 +51,9 @@ namespace NCD
             }
         }
 
-        public void CoupleEndpoints(IEnumerable<IEndpoint> endpoints, EndPointCouplingInformation endPointCouplingInformation)
+        public void CoupleEndpoints(EndPointCouplingInformation endPointCouplingInformation)
         {
-
+            CouplingInformation = endPointCouplingInformation;
         }
 
         public void Dispose()

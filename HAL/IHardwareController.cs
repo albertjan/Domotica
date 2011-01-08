@@ -12,7 +12,7 @@ namespace HAL
 
         event EventHandlers.EndpointEventHandler EndpointStateChanged;
 
-        void CoupleEndpoints(IEnumerable<IEndpoint> endpoints, EndPointCouplingInformation endPointCouplingInformation);
+        void CoupleEndpoints(EndPointCouplingInformation endPointCouplingInformation);
 
         IEnumerable<IHardwareEndpointIndentifier> GetIdentifiers();
     }
