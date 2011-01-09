@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading;
 using System.Xml.Serialization;
 
 namespace NCD
@@ -20,15 +17,18 @@ namespace NCD
         [NonSerialized]
         private string _path;
 
+        [XmlIgnore]
         public string Path
         {
-            get { return _path; }
+            get {
+                return string.IsNullOrWhiteSpace(_path) ? "BasicConfiguration.config" : _path;
+            }
             set { _path = value; }
         }
 
         public string Comport { get; set; }
         public int NumberOfContactClosureBanks { get; set; }
-        public IEnumerable<RelayBank> AvailableRelayBanks { get; set; }
+        public List<RelayBank> AvailableRelayBanks { get; set; }
 
         public void FillExample()
         {
@@ -61,7 +61,7 @@ namespace NCD
         {
             if (_instance != null)
             {
-                using (var s = File.Open(_instance.Path, FileMode.Open, FileAccess.ReadWrite, FileShare.ReadWrite))
+                using (var s = File.Open(_instance.Path, FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.ReadWrite))
                 {
                     new XmlSerializer(typeof(BasicConfiguration)).Serialize(s, _instance);
                 }
