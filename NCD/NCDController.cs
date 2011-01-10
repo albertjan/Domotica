@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Configuration;
 using System.IO;
+using System.Linq;
 using System.Threading;
 using HAL;
 using MIP.Interfaces;
@@ -10,6 +11,8 @@ namespace NCD
 {
     public class NCDController : IHardwareController, IDisposable
     {
+        #region Controllerthread
+
         private static void Runner (object Controller)
         {
             var controller = (NCDController) Controller;
@@ -37,9 +40,12 @@ namespace NCD
                     }
                     else
                     {
+                        //| bank        |       value |
+                        //| 0000 | 0000 | 0000 | 0000 |
+                        
                         for (var contactClosureBank = 0; contactClosureBank < BasicConfiguration.Configuration.NumberOfContactClosureBanks; contactClosureBank++)
                         {
-                            controller.InputStack.Push((byte)((byte)contactClosureBank + controller.NCDComponent.ProXR.Scan.ScanValue((byte)contactClosureBank)));
+                            controller.InputStack.Push((ushort)(((byte)contactClosureBank << 8) + controller.NCDComponent.ProXR.Scan.ScanValue((byte)contactClosureBank)));
                         }
                     }
                 }      
@@ -52,7 +58,56 @@ namespace NCD
 
         public Thread Run { get; set; }
 
+        #endregion
+
+        #region Inputthread
+
+        private static void InputRunner(object ncdController)
+        {
+            var controller = (NCDController) ncdController;
+
+            try
+            {
+                while (true)
+                {
+                    if (controller.InputStack.Count > 0)
+                    {
+                        var val = controller.InputStack.Pop();
+                        var bank = (val & 0xFF00) >> 8;
+                        var value = (val & 0x00FF);
+                        controller.ReportStates(bank, ParseValue(value));
+                    }   
+                    Thread.Sleep(5);
+                }
+            }
+            catch(ThreadAbortException)
+            {
+                
+            }
+        }
+
+        public IDictionary<int, IEnumerable<bool>> CurrentState { get; set; }
+
+        private void ReportStates(int bank, IEnumerable<bool> states)
+        {
+            
+        }
+
+        private static IEnumerable<bool> ParseValue(int value)
+        {
+            yield return (value & 1) > 0 ? true : false;
+            yield return (value & 2) > 0 ? true : false;
+            yield return (value & 4) > 0 ? true : false;
+            yield return (value & 8) > 0 ? true : false;
+            yield return (value & 16) > 0 ? true : false;
+            yield return (value & 32) > 0 ? true : false;
+            yield return (value & 64) > 0 ? true : false;
+            yield return (value & 128) > 0 ? true : false;
+        }
+
         public Thread Input { get; set; }
+
+        #endregion
 
         public Thread Output { get; set; }
 
@@ -95,6 +150,12 @@ namespace NCD
             Run.Abort();
         }
 
+        private void OnEndPointStateChanged()
+        {
+            if (EndpointStateChanged != null)
+                EndpointStateChanged(this, new EndpointEventArgs());
+        }
+
         public EndPointCouplingInformation CouplingInformation { get; set; }
 
         public event EventHandlers.EndpointEventHandler EndpointStateChanged;
@@ -118,7 +179,8 @@ namespace NCD
                 {
                     yield return new NCDHardwareIdentifier()
                                      {
-                                         ID = "B" + relayBank.Number + ":" + i
+                                         ID = "B" + relayBank.Number + ":" + i,
+                                         Type = HardwareEndpointType.Output
                                      };
                 }
             }
