@@ -4,14 +4,10 @@ namespace MIP.Interfaces
 {
     public abstract class InputEndpoint : IEndpoint
     {
-        public delegate void InputReveiced(object sender, string[] e);
-
-        public event InputReveiced InputReceived;
-        
         public abstract IEndpointState State { get; set; }
         
         public abstract IConnection ConnectedTo { get; set; }
-        public abstract void Trigger();
+        public abstract void Trigger(object state);
         public abstract string Name { get; set; }
     }
 }

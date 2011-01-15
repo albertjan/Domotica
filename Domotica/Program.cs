@@ -17,8 +17,6 @@ namespace Domotica
             Console.WriteLine("hit return to quit");
             Console.ReadLine();
             hwc.Stop();
-
-
         }
     }
 }

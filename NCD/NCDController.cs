@@ -69,6 +69,8 @@ namespace NCD
 
         #region Inputthread
 
+        public Stack<ushort> InputStack { get; set; }
+
         private static void InputRunner(object ncdController)
         {
             var controller = (NCDController) ncdController;
@@ -103,7 +105,13 @@ namespace NCD
                 for (int i = 0; i < 8; i++)
                 {
                     int i1 = i;
-                    CouplingInformation.EndpointCouples.First(ci => ci.Item2.ID == "B" + bank + ":" + i1).Item1.Trigger();
+                    if (curBankState.ElementAt(i) != states.ElementAt(i))
+                    {
+                        CurrentState[bank] = states;
+                        Console.WriteLine("Button " + i + " on Bank " + bank + " was pushed at " + DateTime.Now.Second + ":" + DateTime.Now.Millisecond + " state " + states.ElementAt(i));
+                        if (CouplingInformation != null)
+                            CouplingInformation.EndpointCouples.Where(c => c.Item2.Type == HardwareEndpointType.Input).First(ci => ci.Item2.ID == "B" + bank + ":" + i1).Item1.Trigger(states.ElementAt(i)));
+                    }
                 }
             }
             else
@@ -128,11 +136,31 @@ namespace NCD
 
         #endregion
 
+        #region Outputthread
+
+        public static void OutputRunner(object ncdController)
+        {
+            var controller = (NCDController)ncdController;
+
+            try
+            {
+                while (true)
+                {
+               
+                    Thread.Sleep(5);
+                }
+            }
+            catch (ThreadAbortException)
+            {
+
+            }
+        }
+
         public Thread Output { get; set; }
 
         public Stack<ushort> OutputStack { get; set; }
 
-        public Stack<ushort> InputStack { get; set; }
+        #endregion InputThread
 
         public NCDComponent NCDComponent { get; set; }
 
@@ -155,7 +183,7 @@ namespace NCD
             NCDComponent = new NCDComponent {BaudRate = 38400, PortName = BasicConfiguration.Configuration.Comport};
             //ncdComponent.Port = 1;
             NCDComponent.OpenPort();
-            //if (!NCDComponent.IsOpen) throw new HardwareInitializationException();
+            if (!NCDComponent.IsOpen) throw new HardwareInitializationException();
         }
         
         public void Start()
@@ -169,6 +197,8 @@ namespace NCD
         public void Stop()
         {
             Run.Abort();
+            Input.Abort();
+            Output.Abort();
         }
 
         public EndPointCouplingInformation CouplingInformation { get; set; }
@@ -202,6 +232,21 @@ namespace NCD
         public void CoupleEndpoints(EndPointCouplingInformation endPointCouplingInformation)
         {
             CouplingInformation = endPointCouplingInformation;
+            foreach (var endpointCouple in CouplingInformation.EndpointCouples.Where(e => e.Item2.Type == HardwareEndpointType.Output))
+            {
+                ((OutputEndpoint)endpointCouple.Item1).StateChanged += NCDControllerStateChanged;
+            }
+        }
+
+        void NCDControllerStateChanged(object sender, StateChangedEventArgs eventArgs)
+        {
+            var hwid = CouplingInformation.EndpointCouples.Where(c=>c.Item2.Type == HardwareEndpointType.Output).First(e => e.Item1 == sender).Item2.ID;
+            var bank = ushort.Parse(hwid.Substring(1, hwid.IndexOf(":")));
+            var relayid = ushort.Parse(hwid.Substring(hwid.IndexOf(":") + 1));
+            //var state = eventArgs.Endpoint.State == ? 
+            //var relay = (byte)(input & 15);
+            //var bank = (byte)(input & 4080 >> 4);
+            //var status = (byte)(input >> 12);
         }
 
         public void Dispose()

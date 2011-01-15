@@ -47,6 +47,7 @@
     <Compile Include="Interfaces\IHub.cs" />
     <Compile Include="Interfaces\InputEndpoint.cs" />
     <Compile Include="Interfaces\IOutputEndpoint.cs" />
+    <Compile Include="Interfaces\StateChangedEventArgs.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />
