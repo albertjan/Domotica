@@ -15,8 +15,6 @@ namespace HAL
 
         void Stop();
 
-        event EventHandlers.EndpointEventHandler EndpointStateChanged;
-
         void CoupleEndpoints(EndPointCouplingInformation endPointCouplingInformation);
 
         IEnumerable<IHardwareEndpointIndentifier> GetIdentifiers();

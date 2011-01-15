@@ -13,8 +13,12 @@ namespace Domotica
             kernel.Load("NinjectionModules.dll");
             var hwc = kernel.Get<IHardwareController>();
             hwc.Initialize();
+            hwc.Start();
+            Console.WriteLine("hit return to quit");
+            Console.ReadLine();
+            hwc.Stop();
 
-            
+
         }
     }
 }

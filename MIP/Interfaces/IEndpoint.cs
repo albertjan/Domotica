@@ -4,6 +4,7 @@ namespace MIP.Interfaces
     {
         IEndpointState State { get; set; }
         IConnection ConnectedTo { get; set; }
+        void Trigger();
         string Name { get; set; }
     }
 }

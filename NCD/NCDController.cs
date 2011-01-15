@@ -11,6 +11,13 @@ namespace NCD
 {
     public class NCDController : IHardwareController, IDisposable
     {
+        public NCDController ()
+        {
+            CurrentState = new Dictionary<int, IEnumerable<bool>>();
+            OutputStack = new Stack<ushort>();
+            InputStack = new Stack<ushort>();
+        }
+
         #region Controllerthread
 
         private static void Runner (object Controller)
@@ -56,7 +63,7 @@ namespace NCD
             }
         }
 
-        public Thread Run { get; set; }
+        private Thread Run { get; set; }
 
         #endregion
 
@@ -90,7 +97,19 @@ namespace NCD
 
         private void ReportStates(int bank, IEnumerable<bool> states)
         {
-            
+            if (CurrentState.ContainsKey(bank))
+            {
+                var curBankState = CurrentState[bank];
+                for (int i = 0; i < 8; i++)
+                {
+                    int i1 = i;
+                    CouplingInformation.EndpointCouples.First(ci => ci.Item2.ID == "B" + bank + ":" + i1).Item1.Trigger();
+                }
+            }
+            else
+            {
+                CurrentState.Add(bank, states);
+            }
         }
 
         private static IEnumerable<bool> ParseValue(int value)
@@ -136,13 +155,15 @@ namespace NCD
             NCDComponent = new NCDComponent {BaudRate = 38400, PortName = BasicConfiguration.Configuration.Comport};
             //ncdComponent.Port = 1;
             NCDComponent.OpenPort();
-            if (!NCDComponent.IsOpen) throw new HardwareInitializationException();
+            //if (!NCDComponent.IsOpen) throw new HardwareInitializationException();
         }
         
         public void Start()
         {
             Run = new Thread(Runner);
             Run.Start(this);
+            Input = new Thread(InputRunner);
+            Input.Start(this);
         }
 
         public void Stop()
@@ -150,15 +171,7 @@ namespace NCD
             Run.Abort();
         }
 
-        private void OnEndPointStateChanged()
-        {
-            if (EndpointStateChanged != null)
-                EndpointStateChanged(this, new EndpointEventArgs());
-        }
-
         public EndPointCouplingInformation CouplingInformation { get; set; }
-
-        public event EventHandlers.EndpointEventHandler EndpointStateChanged;
 
         public IEnumerable<IHardwareEndpointIndentifier> GetIdentifiers()
         {
