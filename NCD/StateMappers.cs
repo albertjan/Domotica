@@ -7,20 +7,20 @@ using MIP.Interfaces;
 
 namespace NCD
 {
-    public class StateMappers : IEndpointStateMapper
+    public class SwitchDimmerStateMapper : IEndpointStateMapper
     {
-        public ushort GetControllMessageForEndpointState(IEndpointState state, IHardwareEndpointIndentifier hwid)
+        public IEnumerable<IControlMessage> GetControllMessagesForEndpointState(IEndpointState state, IHardwareEndpointIndentifier hwid)
         {
-            throw new NotImplementedException();
+            yield return new NCDControllMessage();
         }
     }
 
     public class SwitchStateMapper : IEndpointStateMapper
     {
-        public ushort GetControllMessageForEndpointState(IEndpointState state, IHardwareEndpointIndentifier hwid)
+        public IEnumerable<IControlMessage> GetControllMessagesForEndpointState(IEndpointState state, IHardwareEndpointIndentifier hwid)
         {
-            throw new NotImplementedException();
+            yield return new NCDControllMessage ();
         }
     }
 }
-}
+
