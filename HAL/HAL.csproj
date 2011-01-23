@@ -40,11 +40,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DimmerEndpoint.cs" />
     <Compile Include="EndPointCouplingInformation.cs" />
     <Compile Include="EventHandlers.cs" />
+    <Compile Include="IEndpointStateMapper.cs" />
     <Compile Include="IHardwareController.cs" />
+    <Compile Include="IHardwareEndpoint.cs" />
     <Compile Include="IHardwareEndpointIndentifier.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SwitchEndpoint.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MIP\MIP.csproj">

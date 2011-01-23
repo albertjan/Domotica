@@ -49,6 +49,7 @@
     <Compile Include="NCDController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RelayBank.cs" />
+    <Compile Include="StateMappers.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\HAL\HAL.csproj">

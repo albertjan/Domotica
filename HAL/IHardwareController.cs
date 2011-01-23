@@ -18,5 +18,5 @@ namespace HAL
         void CoupleEndpoints(EndPointCouplingInformation endPointCouplingInformation);
 
         IEnumerable<IHardwareEndpointIndentifier> GetIdentifiers();
-    }
+     }
 }

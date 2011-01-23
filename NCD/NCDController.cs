@@ -110,7 +110,7 @@ namespace NCD
                         CurrentState[bank] = states;
                         Console.WriteLine("Button " + i + " on Bank " + bank + " was pushed at " + DateTime.Now.Second + ":" + DateTime.Now.Millisecond + " state " + states.ElementAt(i));
                         if (CouplingInformation != null)
-                            CouplingInformation.EndpointCouples.Where(c => c.Item2.Type == HardwareEndpointType.Input).First(ci => ci.Item2.ID == "B" + bank + ":" + i1).Item1.Trigger(states.ElementAt(i)));
+                            CouplingInformation.EndpointCouples.Where(c => c.Item2.Type == HardwareEndpointType.Input).First(ci => ci.Item2.ID == "B" + bank + ":" + i1).Item1.Trigger(states.ElementAt(i));
                     }
                 }
             }
