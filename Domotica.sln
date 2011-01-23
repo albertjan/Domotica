@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NCD", "NCD\NCD.csproj", "{C
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NinjectionModules", "NinjectionModules\NinjectionModules.csproj", "{54B1BF16-BD14-47A1-8987-D985C657700F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MIPLIB", "MIPLIB\MIPLIB.csproj", "{874EA801-9915-4BC5-840F-0F8226F17B83}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -37,6 +39,10 @@ Global
 		{54B1BF16-BD14-47A1-8987-D985C657700F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{54B1BF16-BD14-47A1-8987-D985C657700F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{54B1BF16-BD14-47A1-8987-D985C657700F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{874EA801-9915-4BC5-840F-0F8226F17B83}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{874EA801-9915-4BC5-840F-0F8226F17B83}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{874EA801-9915-4BC5-840F-0F8226F17B83}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{874EA801-9915-4BC5-840F-0F8226F17B83}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

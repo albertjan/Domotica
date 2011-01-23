@@ -20,9 +20,10 @@ namespace NCD
 
         #region Controllerthread
 
-        private static void Runner (object Controller)
+        private static void Runner (object ncdController)
         {
-            var controller = (NCDController) Controller;
+            if (ncdController == null) throw new ArgumentNullException ("Controller");
+            var controller = (NCDController)ncdController;
             try
             {
                 while (true)
@@ -110,7 +111,7 @@ namespace NCD
                         CurrentState[bank] = states;
                         Console.WriteLine("Button " + i + " on Bank " + bank + " was pushed at " + DateTime.Now.Second + ":" + DateTime.Now.Millisecond + " state " + states.ElementAt(i));
                         if (CouplingInformation != null)
-                            CouplingInformation.EndpointCouples.Where(c => c.Item2.Type == HardwareEndpointType.Input).First(ci => ci.Item2.ID == "B" + bank + ":" + i1).Item1.Trigger(states.ElementAt(i));
+                            ((InputEndpoint)CouplingInformation.EndpointCouples.Where(c => c.Item2.Type == HardwareEndpointType.Input).First(ci => ci.Item2.ID == "B" + bank + ":" + i1).Item1).Trigger(Convert.ToInt16(states.ElementAt(i)));
                     }
                 }
             }
@@ -147,7 +148,7 @@ namespace NCD
                 BasicConfiguration.Load(configfile);
             else
             {
-                new BasicConfiguration()
+                new BasicConfiguration
                     {
                         Path = configfile
                     }.FillExample();
@@ -195,7 +196,7 @@ namespace NCD
             {
                 for (int i = 0; i < relayBank.AvailableRelays; i++)
                 {
-                    yield return new NCDHardwareIdentifier()
+                    yield return new NCDHardwareIdentifier
                                      {
                                          ID = "B" + relayBank.Number + ":" + i,
                                          Type = HardwareEndpointType.Output

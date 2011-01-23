@@ -5,7 +5,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>4d57c79a-e86b-46b7-8f38-cf5f3b8de202</ProjectGuid>
+    <ProjectGuid>{874EA801-9915-4BC5-840F-0F8226F17B83}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>MIPLIB</RootNamespace>
@@ -40,8 +40,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
+    <Compile Include="Connections\Connection.cs" />
+    <Compile Include="EndPoints\Input\PulseSwitch.cs" />
+    <Compile Include="EndPoints\Input\Switch.cs" />
+    <Compile Include="EndPoints\Input\TurnDimmer.cs" />
+    <Compile Include="EndPoints\Output\DimmableLight.cs" />
+    <Compile Include="EndPoints\Output\IthoVentilator.cs" />
+    <Compile Include="EndPoints\Output\Light.cs" />
+    <Compile Include="Hubs\SimpleHub.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\MIP\MIP.csproj">
+      <Project>{599FD624-A5E4-4F0F-896B-C91C11E5EE91}</Project>
+      <Name>MIP</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
