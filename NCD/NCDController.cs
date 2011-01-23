@@ -136,31 +136,7 @@ namespace NCD
 
         #endregion
 
-        #region Outputthread
-
-        public static void OutputRunner(object ncdController)
-        {
-            var controller = (NCDController)ncdController;
-
-            try
-            {
-                while (true)
-                {
-               
-                    Thread.Sleep(5);
-                }
-            }
-            catch (ThreadAbortException)
-            {
-
-            }
-        }
-
-        public Thread Output { get; set; }
-
         public Stack<ushort> OutputStack { get; set; }
-
-        #endregion InputThread
 
         public NCDComponent NCDComponent { get; set; }
 
@@ -198,7 +174,6 @@ namespace NCD
         {
             Run.Abort();
             Input.Abort();
-            Output.Abort();
         }
 
         public EndPointCouplingInformation CouplingInformation { get; set; }
@@ -240,13 +215,13 @@ namespace NCD
 
         void NCDControllerStateChanged(object sender, StateChangedEventArgs eventArgs)
         {
-            var hwid = CouplingInformation.EndpointCouples.Where(c=>c.Item2.Type == HardwareEndpointType.Output).First(e => e.Item1 == sender).Item2.ID;
-            var bank = ushort.Parse(hwid.Substring(1, hwid.IndexOf(":")));
-            var relayid = ushort.Parse(hwid.Substring(hwid.IndexOf(":") + 1));
-            //var state = eventArgs.Endpoint.State == ? 
-            //var relay = (byte)(input & 15);
-            //var bank = (byte)(input & 4080 >> 4);
-            //var status = (byte)(input >> 12);
+        //    var hwid = CouplingInformation.EndpointCouples.Where(c=>c.Item2.Type == HardwareEndpointType.Output).First(e => e.Item1 == sender).Item2.ID;
+        //    var bank = ushort.Parse(hwid.Substring(1, hwid.IndexOf(":")));
+        //    var relayid = ushort.Parse(hwid.Substring(hwid.IndexOf(":") + 1));
+        //    //var state = eventArgs.Endpoint.State == ? 
+        //    //var relay = (byte)(input & 15);
+        //    //var bank = (byte)(input & 4080 >> 4);
+        //    //var status = (byte)(input >> 12);
         }
 
         public void Dispose()
