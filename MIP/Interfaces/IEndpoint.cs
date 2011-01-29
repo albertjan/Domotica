@@ -1,8 +1,11 @@
+using System.Collections.Generic;
+
 namespace MIP.Interfaces
 {
     public interface IEndpoint
     {
-        IEndpointState State { get; set; }
+        IEnumerable<IEndpoint> States {get;set;}
+        IEndpointState CurrentState { get; set; }
         IConnection ConnectedTo { get; set; }
         string Name { get; set; }
     }

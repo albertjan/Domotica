@@ -22,5 +22,17 @@ namespace NCD
             yield return new NCDControllMessage ();
         }
     }
+
+    public class IthoVentilatorStateMapper : IEndpointStateMapper
+    {
+        #region Implementation of IEndpointStateMapper
+
+        public IEnumerable<IControlMessage> GetControllMessagesForEndpointState(IEndpointState state, IHardwareEndpointIndentifier hwid)
+        {
+            yield return new NCDControllMessage();
+        }
+
+        #endregion
+    }
 }
 
