@@ -57,6 +57,14 @@
       <Project>{1581955F-C093-4442-AC9D-B4654F6353CB}</Project>
       <Name>HAL</Name>
     </ProjectReference>
+    <ProjectReference Include="..\MIPLIB\MIPLIB.csproj">
+      <Project>{874EA801-9915-4BC5-840F-0F8226F17B83}</Project>
+      <Name>MIPLIB</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MIP\MIP.csproj">
+      <Project>{599FD624-A5E4-4F0F-896B-C91C11E5EE91}</Project>
+      <Name>MIP</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config">
