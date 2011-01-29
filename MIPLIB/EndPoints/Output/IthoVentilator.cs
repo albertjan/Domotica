@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using MIP.Interfaces;
 
 namespace MIPLIB.EndPoints.Output
@@ -6,8 +7,8 @@ namespace MIPLIB.EndPoints.Output
     public class IthoVentilator : OutputEndpoint
     {
         #region Overrides of OutputEndpoint
-
-        public override IEndpointState State { get; set; }
+        public override IEnumerable<IEndpointState> States { get; set; }
+        public override IEndpointState CurrentState { get; set; }
         public override IConnection ConnectedTo { get; set; }
         public override string Name { get; set; }
         

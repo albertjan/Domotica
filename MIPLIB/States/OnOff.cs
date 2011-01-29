@@ -4,7 +4,7 @@ using MIP.Interfaces;
 
 namespace MIPLIB
 {
-    public class OnOff : IEndpointState
+    public class On : IEndpointState
     {
         #region Implementation of IEndpointState
 

@@ -48,7 +48,9 @@
     <Compile Include="EndPoints\Output\IthoVentilator.cs" />
     <Compile Include="EndPoints\Output\Light.cs" />
     <Compile Include="Hubs\SimpleHub.cs" />
+    <Compile Include="States\OnOff.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="States\VentilatorStates.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

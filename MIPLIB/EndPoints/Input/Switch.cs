@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using MIP.Interfaces;
 
 namespace MIPLIB.EndPoints.Input
@@ -7,7 +8,8 @@ namespace MIPLIB.EndPoints.Input
     {
         #region Overrides of InputEndpoint
 
-        public override IEndpointState State { get; set; }
+        public override IEnumerable<IEndpointState> States { get; set; }
+        public override IEndpointState CurrentState { get; set; }
         public override IConnection ConnectedTo { get; set; }
         public override void Trigger(object state)
         {
