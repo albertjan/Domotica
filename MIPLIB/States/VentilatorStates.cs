@@ -1,7 +1,6 @@
-using System;
 using MIP.Interfaces;
 
-namespace MIPLIB
+namespace MIPLIB.States
 {
     public class Low : IEndpointState
     {

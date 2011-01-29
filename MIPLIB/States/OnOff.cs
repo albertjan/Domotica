@@ -1,8 +1,6 @@
-using System;
-using System.Collections.Generic;
 using MIP.Interfaces;
 
-namespace MIPLIB
+namespace MIPLIB.States
 {
     public class On : IEndpointState
     {
