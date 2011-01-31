@@ -6,6 +6,6 @@ namespace HAL
 {
     public class EndPointCouplingInformation
     {
-        public IEnumerable<Tuple<IEndpoint, IHardwareEndpointIndentifier>> EndpointCouples { get; set; }
+        public IEnumerable<Tuple<IEndpoint, IHardwareEndpoint>> EndpointCouples { get; set; }
     }
 }

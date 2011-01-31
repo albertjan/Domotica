@@ -8,11 +8,12 @@ namespace HAL
     public interface IHardwareEndpoint
     {
         IEndpointStateMapper Mapper { get; set; }
-        IHardwareEndpointIndentifier ID { get; set; }
+        IEnumerable<IHardwareEndpointIndentifier> HardwareEndpointIndentifiers { get; set; }
     }
 
-    public class DimmerAttribute : Attribute {} 
+    public class DimmerAttribute : Attribute { }
 
-    public class SwitchAttribute : Attribute {}
+    public class SwitchAttribute : Attribute { }
 
+    public class FourStateAttribute : Attribute { }
 }

@@ -11,7 +11,7 @@ namespace MIP.Interfaces
 
         public void InvokeStateChanged(StateChangedEventArgs e)
         {
-            StateChangedEventHandler handler = StateChanged;
+            var handler = StateChanged;
             if (handler != null) handler(this, e);
         }
 

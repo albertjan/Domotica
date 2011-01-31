@@ -5,10 +5,10 @@ using System.Text;
 
 namespace HAL
 {
-    public class DimmerEndpoint : IHardwareEndpoint
+    public class DimmedEndpoint : IHardwareEndpoint
     {
         [Dimmer]
         public IEndpointStateMapper Mapper { get; set; }
-        public IHardwareEndpointIndentifier ID { get; set; }
+        public IEnumerable<IHardwareEndpointIndentifier> HardwareEndpointIndentifiers { get; set; }
     }
 }

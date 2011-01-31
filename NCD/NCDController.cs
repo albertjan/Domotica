@@ -103,15 +103,15 @@ namespace NCD
             if (CurrentState.ContainsKey(bank))
             {
                 var curBankState = CurrentState[bank];
-                for (int i = 0; i < 8; i++)
+                for (var i = 0; i < 8; i++)
                 {
-                    int i1 = i;
+                    var i1 = i;
                     if (curBankState.ElementAt(i) != states.ElementAt(i))
                     {
                         CurrentState[bank] = states;
                         Console.WriteLine("Button " + i + " on Bank " + bank + " was pushed at " + DateTime.Now.Second + ":" + DateTime.Now.Millisecond + " state " + states.ElementAt(i));
-                        if (CouplingInformation != null)
-                            ((InputEndpoint)CouplingInformation.EndpointCouples.Where(c => c.Item2.Type == HardwareEndpointType.Input).First(ci => ci.Item2.ID == "B" + bank + ":" + i1).Item1).Trigger(Convert.ToInt16(states.ElementAt(i)));
+                        //if (CouplingInformation != null)
+                        //    ((InputEndpoint)CouplingInformation.EndpointCouples.Where(c => c.Item2.Type == HardwareEndpointType.Input).First(ci => ci.Item2.ID == "B" + bank + ":" + i1).Item1).Trigger(Convert.ToInt16(states.ElementAt(i)));
                     }
                 }
             }
@@ -181,9 +181,9 @@ namespace NCD
 
         public IEnumerable<IHardwareEndpointIndentifier> GetIdentifiers()
         {
-            for (int i = 0; i < BasicConfiguration.Configuration.NumberOfContactClosureBanks; i++)
+            for (var i = 0; i < BasicConfiguration.Configuration.NumberOfContactClosureBanks; i++)
             {
-                for (int j = 0; j < 8; j++)
+                for (var j = 0; j < 8; j++)
                 {
                     yield return new NCDHardwareIdentifier
                                      {
@@ -194,7 +194,7 @@ namespace NCD
             }
             foreach (var relayBank in BasicConfiguration.Configuration.AvailableRelayBanks)
             {
-                for (int i = 0; i < relayBank.AvailableRelays; i++)
+                for (var i = 0; i < relayBank.AvailableRelays; i++)
                 {
                     yield return new NCDHardwareIdentifier
                                      {
@@ -208,10 +208,10 @@ namespace NCD
         public void CoupleEndpoints(EndPointCouplingInformation endPointCouplingInformation)
         {
             CouplingInformation = endPointCouplingInformation;
-            foreach (var endpointCouple in CouplingInformation.EndpointCouples.Where(e => e.Item2.Type == HardwareEndpointType.Output))
-            {
-                ((OutputEndpoint)endpointCouple.Item1).StateChanged += NCDControllerStateChanged;
-            }
+            //foreach (var endpointCouple in CouplingInformation.EndpointCouples.Where(e => e.Item2.Type == HardwareEndpointType.Output))
+            //{
+            //    ((OutputEndpoint)endpointCouple.Item1).StateChanged += NCDControllerStateChanged;
+            //}
         }
 
         void NCDControllerStateChanged(object sender, StateChangedEventArgs eventArgs)

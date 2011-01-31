@@ -34,6 +34,7 @@
     <Reference Include="NCDComponent">
       <HintPath>..\Libs\NCDComponent.dll</HintPath>
     </Reference>
+    <Reference Include="Ninject, Version=2.1.0.67, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Core" />

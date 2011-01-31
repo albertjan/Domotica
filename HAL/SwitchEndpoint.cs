@@ -9,6 +9,7 @@ namespace HAL
     {
         [Switch]
         public IEndpointStateMapper Mapper { get; set; }
-        public IHardwareEndpointIndentifier ID { get; set; }
+
+        public IEnumerable<IHardwareEndpointIndentifier> HardwareEndpointIndentifiers { get; set; }
     }
 }

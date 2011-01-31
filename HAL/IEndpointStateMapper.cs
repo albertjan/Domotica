@@ -8,6 +8,7 @@ namespace HAL
 {
     public interface IEndpointStateMapper
     {
+        IEnumerable<IEndpointState> HandledStates { get; set; }
         IEnumerable<IControlMessage> GetControllMessagesForEndpointState(IEndpointState state, IHardwareEndpointIndentifier hwid);
     }
 }
