@@ -65,6 +65,10 @@
       <Project>{599FD624-A5E4-4F0F-896B-C91C11E5EE91}</Project>
       <Name>MIP</Name>
     </ProjectReference>
+    <ProjectReference Include="..\NCD\NCD.csproj">
+      <Project>{CBB2A70A-B33F-437E-AE0D-5C69A914E22E}</Project>
+      <Name>NCD</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config">

@@ -2,14 +2,18 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Ninject;
 
-namespace HAL
+namespace HAL.Endpoints
 {
-    public class SwitchEndpoint : IHardwareEndpoint
+    public class FourStateEndpoint : IHardwareEndpoint
     {
-        [Switch]
+        #region Implementation of IHardwareEndpoint
+        [Inject, FourState]
         public IEndpointStateMapper Mapper { get; set; }
 
         public IEnumerable<IHardwareEndpointIndentifier> HardwareEndpointIndentifiers { get; set; }
+
+        #endregion
     }
 }

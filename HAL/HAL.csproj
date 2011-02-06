@@ -31,6 +31,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Ninject">
+      <HintPath>..\Libs\Ninject.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -40,8 +43,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DimmedEndpoint.cs" />
+    <Compile Include="Endpoints\DimmedEndpoint.cs" />
     <Compile Include="EndPointCouplingInformation.cs" />
+    <Compile Include="Endpoints\FourStateEndpoint.cs" />
     <Compile Include="EventHandlers.cs" />
     <Compile Include="IControlMessage.cs" />
     <Compile Include="IEndpointStateMapper.cs" />
@@ -50,7 +54,7 @@
     <Compile Include="IHardwareEndpointIndentifier.cs" />
     <Compile Include="NonBlockingControlSequenceRunner.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SwitchEndpoint.cs" />
+    <Compile Include="Endpoints\SwitchedEndpoint.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MIP\MIP.csproj">

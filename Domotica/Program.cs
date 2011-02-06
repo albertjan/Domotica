@@ -1,6 +1,8 @@
 ﻿using System;
 using HAL;
+using HAL.Endpoints;
 using MIPLIB.EndPoints.Output;
+using NCD;
 using Ninject;
 
 namespace Domotica
@@ -18,7 +20,10 @@ namespace Domotica
 
             var l = kernel.Get<Light>();
             var i = kernel.Get<IthoVentilator>();
+            var j = kernel.Get<DimmedEndpointStateMapper>();
+            var q = kernel.Get<FourStateEndpoint>();
 
+            //var p = kernel.Get<FourStateEndPoint>();
             Console.WriteLine("hit return to quit");
             Console.ReadLine();
             hwc.Stop();
