@@ -23,6 +23,9 @@ namespace NinjectionModules
         public override void Load ()
         {
             Bind<IHardwareController> ().To<NCDController> ();
+
+            Bind<IHardwareEndpoint>().To<SwitchedEndpoint>();
+
             Bind<IEndpointStateMapper> ().To<DimmedEndpointStateMapper> ().WhenTargetHas<DimmerAttribute> ();
             Bind<IEndpointStateMapper> ().To<SwitchedEndpointStateMapper> ().WhenTargetHas<SwitchAttribute> ();
             Bind<IEndpointStateMapper> ().To<IthoVentilatorStateMapper> ().WhenTargetHas<FourStateAttribute>();

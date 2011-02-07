@@ -10,7 +10,6 @@ namespace NCD
 {
     public class DimmedEndpointStateMapper : IEndpointStateMapper
     {
-        [Inject]
         public DimmedEndpointStateMapper(IEnumerable<IEndpointState> handledStates)
         {
             HandledStates = handledStates;
@@ -26,7 +25,6 @@ namespace NCD
 
     public class SwitchedEndpointStateMapper : IEndpointStateMapper
     {
-        [Inject]
         public SwitchedEndpointStateMapper (IEnumerable<IEndpointState> handledStates)
         {
             HandledStates = handledStates;

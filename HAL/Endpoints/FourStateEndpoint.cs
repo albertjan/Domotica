@@ -9,9 +9,8 @@ namespace HAL.Endpoints
     public class FourStateEndpoint : IHardwareEndpoint
     {
         #region Implementation of IHardwareEndpoint
-        [Inject, FourState]
+        [FourState]
         public IEndpointStateMapper Mapper { get; set; }
-
         public IEnumerable<IHardwareEndpointIndentifier> HardwareEndpointIndentifiers { get; set; }
 
         #endregion

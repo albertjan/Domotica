@@ -18,10 +18,7 @@ namespace Domotica
             //hwc.Initialize();
             //hwc.Start();
 
-            var l = kernel.Get<Light>();
-            var i = kernel.Get<IthoVentilator>();
-            var j = kernel.Get<DimmedEndpointStateMapper>();
-            var q = kernel.Get<FourStateEndpoint>();
+
 
             //var p = kernel.Get<FourStateEndPoint>();
             Console.WriteLine("hit return to quit");

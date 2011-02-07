@@ -8,7 +8,7 @@ namespace HAL
 {
     public class SwitchedEndpoint : IHardwareEndpoint
     {
-        [Switch, Inject]
+        [Switch]
         public IEndpointStateMapper Mapper { get; set; }
         public IEnumerable<IHardwareEndpointIndentifier> HardwareEndpointIndentifiers { get; set; }
     }

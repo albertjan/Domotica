@@ -8,7 +8,7 @@ namespace HAL
 {
     public class DimmedEndpoint : IHardwareEndpoint
     {
-        [Dimmer, Inject]
+        [Dimmer]
         public IEndpointStateMapper Mapper { get; set; }
         public IEnumerable<IHardwareEndpointIndentifier> HardwareEndpointIndentifiers { get; set; }
     }
