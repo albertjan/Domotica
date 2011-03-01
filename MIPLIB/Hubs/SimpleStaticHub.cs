@@ -8,7 +8,6 @@ namespace MIPLIB.Hubs
         public SimpleStaticHub()
         {
             RegisteredConnections = new List<IConnection>();
-
         }
 
         public IList<IConnection> RegisteredConnections { get; set; }
