@@ -43,7 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Connections\Connection.cs" />
+    <Compile Include="EndPoints\DelayedTrigger.cs" />
     <Compile Include="EndPoints\Input\PulseSwitch.cs" />
     <Compile Include="EndPoints\Input\Switch.cs" />
     <Compile Include="EndPoints\Input\TurnDimmer.cs" />

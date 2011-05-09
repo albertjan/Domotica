@@ -5,11 +5,11 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{599FD624-A5E4-4F0F-896B-C91C11E5EE91}</ProjectGuid>
+    <ProjectGuid>{B7A5C9C2-31DD-4CC7-BFC8-ABE6271734E5}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>MIP</RootNamespace>
-    <AssemblyName>MIP</AssemblyName>
+    <RootNamespace>Storage</RootNamespace>
+    <AssemblyName>Storage</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -40,15 +40,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Interfaces\IEndpoint.cs" />
-    <Compile Include="Interfaces\IEndpointState.cs" />
-    <Compile Include="Interfaces\IHub.cs" />
-    <Compile Include="Interfaces\InputEndpoint.cs" />
-    <Compile Include="Interfaces\OutputEndpoint.cs" />
-    <Compile Include="Interfaces\StateChangedEventArgs.cs" />
+    <Compile Include="InputEndpoint.cs" />
+    <Compile Include="OutputEndPoint.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

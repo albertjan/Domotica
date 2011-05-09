@@ -4,9 +4,10 @@ namespace MIP.Interfaces
 {
     public interface IEndpoint
     {
-        IEnumerable<IEndpointState> States {get;set;}
+        IEnumerable<IEndpointState> States { get; set; }
         IEndpointState CurrentState { get; set; }
-        IConnection ConnectedTo { get; set; }
+        IEndpointState DetermineNextState();
+        IEnumerable<IHub> Hubs { get; set; }
         string Name { get; set; }
     }
 }

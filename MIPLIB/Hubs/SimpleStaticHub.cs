@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using MIP.Interfaces;
 
@@ -7,9 +8,17 @@ namespace MIPLIB.Hubs
     {
         public SimpleStaticHub()
         {
-            RegisteredConnections = new List<IConnection>();
+                
         }
 
-        public IList<IConnection> RegisteredConnections { get; set; }
+        #region Implementation of IHub
+
+        public IList<IEndpoint> RegisteredEndPoints { get; set; }
+        public IEnumerable<IEndpoint> DetermineRoute(IEndpoint endpoint)
+        {
+            throw new NotImplementedException();
+        }
+
+        #endregion
     }
 }

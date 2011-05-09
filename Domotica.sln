@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
@@ -49,55 +48,3 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 EndGlobal
-=======
-﻿
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2010
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domotica", "Domotica\Domotica.csproj", "{4B8C1353-64FA-452A-BDFE-2AE0BF773B6C}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MIP", "MIP\MIP.csproj", "{599FD624-A5E4-4F0F-896B-C91C11E5EE91}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HAL", "HAL\HAL.csproj", "{1581955F-C093-4442-AC9D-B4654F6353CB}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NCD", "NCD\NCD.csproj", "{CBB2A70A-B33F-437E-AE0D-5C69A914E22E}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NinjectionModules", "NinjectionModules\NinjectionModules.csproj", "{54B1BF16-BD14-47A1-8987-D985C657700F}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MIPLIB", "MIPLIB\MIPLIB.csproj", "{874EA801-9915-4BC5-840F-0F8226F17B83}"
-EndProject
-Global
-	GlobalSection(SolutionConfigurationPlatforms) = preSolution
-		Debug|Any CPU = Debug|Any CPU
-		Release|Any CPU = Release|Any CPU
-	EndGlobalSection
-	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{4B8C1353-64FA-452A-BDFE-2AE0BF773B6C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4B8C1353-64FA-452A-BDFE-2AE0BF773B6C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4B8C1353-64FA-452A-BDFE-2AE0BF773B6C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{4B8C1353-64FA-452A-BDFE-2AE0BF773B6C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{599FD624-A5E4-4F0F-896B-C91C11E5EE91}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{599FD624-A5E4-4F0F-896B-C91C11E5EE91}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{599FD624-A5E4-4F0F-896B-C91C11E5EE91}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{599FD624-A5E4-4F0F-896B-C91C11E5EE91}.Release|Any CPU.Build.0 = Release|Any CPU
-		{1581955F-C093-4442-AC9D-B4654F6353CB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{1581955F-C093-4442-AC9D-B4654F6353CB}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{1581955F-C093-4442-AC9D-B4654F6353CB}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{1581955F-C093-4442-AC9D-B4654F6353CB}.Release|Any CPU.Build.0 = Release|Any CPU
-		{CBB2A70A-B33F-437E-AE0D-5C69A914E22E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{CBB2A70A-B33F-437E-AE0D-5C69A914E22E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{CBB2A70A-B33F-437E-AE0D-5C69A914E22E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{CBB2A70A-B33F-437E-AE0D-5C69A914E22E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{54B1BF16-BD14-47A1-8987-D985C657700F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{54B1BF16-BD14-47A1-8987-D985C657700F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{54B1BF16-BD14-47A1-8987-D985C657700F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{54B1BF16-BD14-47A1-8987-D985C657700F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{874EA801-9915-4BC5-840F-0F8226F17B83}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{874EA801-9915-4BC5-840F-0F8226F17B83}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{874EA801-9915-4BC5-840F-0F8226F17B83}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{874EA801-9915-4BC5-840F-0F8226F17B83}.Release|Any CPU.Build.0 = Release|Any CPU
-	EndGlobalSection
-	GlobalSection(SolutionProperties) = preSolution
-		HideSolutionNode = FALSE
-	EndGlobalSection
-EndGlobal
->>>>>>> e92ce61... hmmmm

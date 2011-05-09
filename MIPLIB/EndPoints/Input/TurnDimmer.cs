@@ -10,7 +10,7 @@ namespace MIPLIB.EndPoints.Input
 
         public override IEnumerable<IEndpointState> States { get; set; }
         public override IEndpointState CurrentState { get; set; }
-        public override IConnection ConnectedTo { get; set; }
+        public override IEnumerable<IHub> Hubs { get; set; }
         public override void Trigger(object state)
         {
             throw new NotImplementedException();

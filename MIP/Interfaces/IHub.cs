@@ -4,6 +4,8 @@ namespace MIP.Interfaces
 {
     public interface IHub
     {
-        IList<IConnection> RegisteredConnections { get; set; }
+        IList<IEndpoint> RegisteredEndPoints { get; set; }
+
+        IEnumerable<IEndpoint> DetermineRoute(IEndpoint endpoint);
     }
 }
