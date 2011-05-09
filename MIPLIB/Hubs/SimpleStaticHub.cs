@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using MIP.Interfaces;
 
 namespace MIPLIB.Hubs
@@ -8,15 +9,19 @@ namespace MIPLIB.Hubs
     {
         public SimpleStaticHub()
         {
-                
+            Rules = new List<IRule>();
+            
         }
 
         #region Implementation of IHub
 
         public IList<IEndpoint> RegisteredEndPoints { get; set; }
-        public IEnumerable<IEndpoint> DetermineRoute(IEndpoint endpoint)
+
+        public IList<IRule> Rules { get; set; }
+
+        public void Trigger(IEndpoint endpoint)
         {
-            throw new NotImplementedException();
+            var actions = Rules.Where(r => r.HasFriend(endpoint)).Select(rule => rule.FireWithInput(endpoint));
         }
 
         #endregion

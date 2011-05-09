@@ -6,6 +6,8 @@ namespace MIP.Interfaces
     {
         IList<IEndpoint> RegisteredEndPoints { get; set; }
 
-        IEnumerable<IEndpoint> DetermineRoute(IEndpoint endpoint);
+        IList<IRule> Rules { get; set; }
+
+        void Trigger(IEndpoint endpoint);
     }
 }

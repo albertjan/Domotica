@@ -50,6 +50,7 @@
     <Compile Include="EndPoints\Output\DimmableLight.cs" />
     <Compile Include="EndPoints\Output\IthoVentilator.cs" />
     <Compile Include="EndPoints\Output\Light.cs" />
+    <Compile Include="Hubs\Rules\BasicRule.cs" />
     <Compile Include="Hubs\SimpleStaticHub.cs" />
     <Compile Include="States\OnOff.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

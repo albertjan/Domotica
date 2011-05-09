@@ -19,11 +19,7 @@ namespace MIP.Interfaces
 
         public abstract IEnumerable<IEndpointState> States { get; set; }
         public abstract IEndpointState CurrentState { get; set; }
-        public IEndpointState DetermineNextState()
-        {
-            throw new NotImplementedException();
-        }
-
+        public abstract bool DetermineNextState();
         public abstract IEnumerable<IHub> Hubs { get; set; }
         public abstract string Name { get; set; }
 
