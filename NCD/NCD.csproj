@@ -46,6 +46,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BasicConfiguration.cs" />
+    <Compile Include="NCDEndPointCouplingInformation.cs" />
     <Compile Include="NCDControllMessage.cs" />
     <Compile Include="NCDHardwareIdentifier.cs" />
     <Compile Include="NCDController.cs" />

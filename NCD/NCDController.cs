@@ -177,7 +177,7 @@ namespace NCD
             Input.Abort();
         }
 
-        public EndPointCouplingInformation CouplingInformation { get; set; }
+        public NCDEndPointCouplingInformation CouplingInformation { get; set; }
 
         public IEnumerable<IHardwareEndpointIndentifier> GetIdentifiers()
         {
@@ -205,9 +205,9 @@ namespace NCD
             }
         }
 
-        public void CoupleEndpoints(EndPointCouplingInformation endPointCouplingInformation)
+        public void CoupleEndpoints(IEndPointCouplingInformation endPointCouplingInformation)
         {
-            CouplingInformation = endPointCouplingInformation;
+            CouplingInformation = endPointCouplingInformation.Load();
             //foreach (var endpointCouple in CouplingInformation.EndpointCouples.Where(e => e.Item2.Type == HardwareEndpointType.Output))
             //{
             //    ((OutputEndpoint)endpointCouple.Item1).StateChanged += NCDControllerStateChanged;

@@ -31,8 +31,9 @@ namespace NinjectionModules
             Bind<IEndpointStateMapper> ().To<IthoVentilatorStateMapper> ().WhenTargetHas<FourStateAttribute>();
 
             Bind<IControlMessage> ().To<NCDControllMessage> ();
-            
-            Bind<IEndpointState>().To<On>().WhenInjectedInto(typeof (Light));
+            Bind<IHardwareEndpointIndentifier>().To<NCDHardwareIdentifier>();
+
+            Bind<IEndpointState>().To<On> ().WhenInjectedInto (typeof (Light));
             Bind<IEndpointState> ().To<Off> ().WhenInjectedInto (typeof (Light));
             
             Bind<IEndpointState> ().To<Low> ().WhenInjectedInto (typeof (IthoVentilator));

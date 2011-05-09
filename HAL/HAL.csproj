@@ -44,10 +44,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Endpoints\DimmedEndpoint.cs" />
-    <Compile Include="EndPointCouplingInformation.cs" />
     <Compile Include="Endpoints\FourStateEndpoint.cs" />
+    <Compile Include="Endpoints\GenericInputEndpoint.cs" />
     <Compile Include="EventHandlers.cs" />
     <Compile Include="IControlMessage.cs" />
+    <Compile Include="IEndPointCouplingInformation.cs" />
     <Compile Include="IEndpointStateMapper.cs" />
     <Compile Include="IHardwareController.cs" />
     <Compile Include="IHardwareEndpoint.cs" />
