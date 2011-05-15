@@ -25,13 +25,23 @@ namespace NCD
                     {
                         HardwareEndpointIndentifiers = new List<IHardwareEndpointIndentifier> 
                         {
-                            new NCD.NCDHardwareIdentifier()
+                            new NCDHardwareIdentifier
                                 {
-                                    ID = "01",
+                                    ID = "B0:0",
                                     Type = HardwareEndpointType.Input
-                                } 
+                                }
                         }
                     }),
+                    new Tuple<string, IHardwareEndpoint>("LampToilet", new SwitchedEndpoint
+                    {
+                        HardwareEndpointIndentifiers = new List<IHardwareEndpointIndentifier> {
+                        new NCDHardwareIdentifier
+                            {
+                                ID = "B0:0",
+                                Type = HardwareEndpointType.Output
+                            }
+                        }
+                    })
                 }
             };
         }

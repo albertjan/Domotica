@@ -15,9 +15,9 @@ namespace Domotica
             IKernel kernel = new StandardKernel();
             kernel.Load("NinjectionModules.dll");
             var hwc = kernel.Get<IHardwareController>();
-            //hwc.Initialize();
-            //hwc.Start();
-
+            hwc.Initialize();
+            hwc.Start();
+            //hwc.Hubs.Add(kernel.Get<IHub>());
 
 
             //var p = kernel.Get<FourStateEndPoint>();

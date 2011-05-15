@@ -17,6 +17,8 @@ namespace HAL
 
         void CoupleEndpoints(IEndPointCouplingInformation endPointCouplingInformation);
 
+        IEnumerable<IHub> Hubs { get; set; }
+        
         IEnumerable<IHardwareEndpointIndentifier> GetIdentifiers();
      }
 }

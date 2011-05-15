@@ -4,7 +4,7 @@ using MIP.Interfaces;
 
 namespace MIPLIB.EndPoints.Input
 {
-    class PulseSwitch : InputEndpoint
+    public class PulseSwitch : InputEndpoint
     {
         #region Overrides of InputEndpoint
 

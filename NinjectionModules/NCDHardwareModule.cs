@@ -5,8 +5,10 @@ using System.Linq;
 using System.Text;
 using HAL;
 using MIP.Interfaces;
-using MIPLIB.EndPoints.Output;
-using MIPLIB.States;
+ using MIPLIB.EndPoints.Input;
+ using MIPLIB.EndPoints.Output;
+ using MIPLIB.Hubs;
+ using MIPLIB.States;
 using NCD;
 using MIPLIB;
 using MIP;
@@ -25,6 +27,16 @@ namespace NinjectionModules
             Bind<IHardwareController> ().To<NCDController> ();
 
             Bind<IHardwareEndpoint>().To<SwitchedEndpoint>();
+
+            Bind<IEndPointCouplingInformation>().To<NCDEndPointCouplingInformation>();
+
+            Bind<IHub>().To<SimpleStaticHub>();
+
+            Bind<IEndpoint> ().To<Light> ().WhenInjectedInto(typeof (SimpleStaticHub));
+            Bind<IEndpoint> ().To<PulseSwitch> ().WhenInjectedInto (typeof (SimpleStaticHub));
+            //Bind<IEndpoint> ().To<Light> ().WhenInjectedInto (typeof (SimpleStaticHub));
+            //Bind<IEndpoint> ().To<Light> ().WhenInjectedInto (typeof (SimpleStaticHub));
+
 
             Bind<IEndpointStateMapper> ().To<DimmedEndpointStateMapper> ().WhenTargetHas<DimmerAttribute> ();
             Bind<IEndpointStateMapper> ().To<SwitchedEndpointStateMapper> ().WhenTargetHas<SwitchAttribute> ();

@@ -4,7 +4,7 @@ namespace MIP.Interfaces
 {
     public interface IHub
     {
-        IList<IEndpoint> RegisteredEndPoints { get; set; }
+        IEnumerable<IEndpoint> RegisteredEndPoints { get; set; }
 
         IList<IRule> Rules { get; set; }
 

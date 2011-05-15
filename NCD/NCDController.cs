@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading;
 using HAL;
 using MIP.Interfaces;
+using Ninject;
 
 namespace NCD
 {
@@ -22,7 +23,7 @@ namespace NCD
 
         private static void Runner (object ncdController)
         {
-            if (ncdController == null) throw new ArgumentNullException ("Controller");
+            if (ncdController == null) throw new ArgumentNullException ("ncdController");
             var controller = (NCDController)ncdController;
             try
             {
@@ -110,8 +111,21 @@ namespace NCD
                     {
                         CurrentState[bank] = states;
                         Console.WriteLine("Button " + i + " on Bank " + bank + " was pushed at " + DateTime.Now.Second + ":" + DateTime.Now.Millisecond + " state " + states.ElementAt(i));
-                        //if (CouplingInformation != null)
-                        //    ((InputEndpoint)CouplingInformation.EndpointCouples.Where(c => c.Item2.Type == HardwareEndpointType.Input).First(ci => ci.Item2.ID == "B" + bank + ":" + i1).Item1).Trigger(Convert.ToInt16(states.ElementAt(i)));
+                        if (CouplingInformation != null)
+                        {
+                            foreach (var couple in CouplingInformation.EndpointCouples)
+                            {
+                                if (couple.Item2.HardwareEndpointIndentifiers.Where(a => a.ID == "B" + bank + ":" + i && a.Type == HardwareEndpointType.Input).Count() > 0)
+                                {
+                                    foreach (var hub in Hubs)
+                                    {
+                                        var couple1 = couple;
+                                        hub.Trigger(hub.RegisteredEndPoints.First(e => e.Name == couple1.Item1));
+                                    }
+                                    Console.WriteLine(couple.Item1);
+                                }
+                            }
+                        }
                     }
                 }
             }
@@ -156,7 +170,7 @@ namespace NCD
                 BasicConfiguration.Save();
                 throw new Exception("EmptyConfigurationException, Please fill the configuration with the right information and start again.");
             }
-
+            CoupleEndpoints(new NCDEndPointCouplingInformation());
             NCDComponent = new NCDComponent {BaudRate = 38400, PortName = BasicConfiguration.Configuration.Comport};
             //ncdComponent.Port = 1;
             NCDComponent.OpenPort();
@@ -209,6 +223,9 @@ namespace NCD
         {
             CouplingInformation = endPointCouplingInformation.Load();
         }
+
+        [Inject]
+        public IEnumerable<IHub> Hubs { get; set; }
 
         void NCDControllerStateChanged(object sender, StateChangedEventArgs eventArgs)
         {
