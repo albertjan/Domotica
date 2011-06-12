@@ -30,7 +30,7 @@ namespace NinjectionModules
 
             Bind<IEndPointCouplingInformation>().To<NCDEndPointCouplingInformation>();
 
-            Bind<IHub>().To<SimpleStaticHub>();
+            Bind<IHub>().To<SimpleStaticHub>().InSingletonScope();
 
             Bind<IEndpoint> ().To<Light> ().WhenInjectedInto(typeof (SimpleStaticHub));
             Bind<IEndpoint> ().To<PulseSwitch> ().WhenInjectedInto (typeof (SimpleStaticHub));
@@ -43,9 +43,9 @@ namespace NinjectionModules
             Bind<IEndpointStateMapper> ().To<IthoVentilatorStateMapper> ().WhenTargetHas<FourStateAttribute>();
 
             Bind<IControlMessage> ().To<NCDControllMessage> ();
-            Bind<IHardwareEndpointIndentifier>().To<NCDHardwareIdentifier>();
+            Bind<IHardwareEndpointIndentifier> ().To<NCDHardwareIdentifier>();
 
-            Bind<IEndpointState>().To<On> ().WhenInjectedInto (typeof (Light));
+            Bind<IEndpointState> ().To<On> ().WhenInjectedInto (typeof (Light));
             Bind<IEndpointState> ().To<Off> ().WhenInjectedInto (typeof (Light));
             
             Bind<IEndpointState> ().To<Low> ().WhenInjectedInto (typeof (IthoVentilator));

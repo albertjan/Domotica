@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using HAL;
 using MIP.Interfaces;
 using Ninject;
@@ -13,6 +11,11 @@ namespace NCD
         public DimmedEndpointStateMapper(IEnumerable<IEndpointState> handledStates)
         {
             HandledStates = handledStates;
+        }
+
+        public IEndpointState DetermineState(IDictionary<int, IEnumerable<bool>> currentState)
+        {
+            throw new NotImplementedException();
         }
 
         public IEnumerable<IEndpointState> HandledStates { get; set; }
@@ -30,6 +33,11 @@ namespace NCD
             HandledStates = handledStates;
         }
 
+        public IEndpointState DetermineState(IDictionary<int, IEnumerable<bool>> currentState)
+        {
+            throw new NotImplementedException();
+        }
+
         public IEnumerable<IEndpointState> HandledStates { get; set; }
 
         public IEnumerable<IControlMessage> GetControllMessagesForEndpointState(IEndpointState state, IHardwareEndpointIndentifier hwid)
@@ -44,6 +52,11 @@ namespace NCD
         public IthoVentilatorStateMapper (IEnumerable<IEndpointState> handledStates)
         {
             HandledStates = handledStates;
+        }
+
+        public IEndpointState DetermineState(IDictionary<int, IEnumerable<bool>> currentState)
+        {
+            throw new NotImplementedException();
         }
 
         public IEnumerable<IEndpointState> HandledStates { get; set; }

@@ -7,7 +7,8 @@ namespace MIP.Interfaces
         IEnumerable<IEndpointState> States { get; set; }
         IEndpointState CurrentState { get; set; }
         bool DetermineNextState();
-        IEnumerable<IHub> Hubs { get; set; }
+        IList<IHub> Hubs { get; set; }
         string Name { get; set; }
+        void SetHub(IHub hub);
     }
 }

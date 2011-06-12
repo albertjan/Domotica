@@ -17,6 +17,19 @@ namespace NCD
             CurrentState = new Dictionary<int, IEnumerable<bool>>();
             OutputStack = new Stack<ushort>();
             InputStack = new Stack<ushort>();
+            foreach (var hub in Hubs)
+            {
+                foreach (var registeredEndPoint in hub.RegisteredEndPoints)
+                {
+                    foreach (var couple in CouplingInformation.EndpointCouples)
+                    {
+                        if (couple.Item1 == registeredEndPoint.Name)
+                        {
+                            registeredEndPoint.CurrentState = couple.Item2.Mapper.DetermineState(CurrentState);
+                        }
+                    }
+                }
+            }
         }
 
         #region Controllerthread

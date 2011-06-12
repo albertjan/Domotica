@@ -8,6 +8,12 @@ namespace MIPLIB.EndPoints.Input
     {
         #region Overrides of InputEndpoint
 
+        public PulseSwitch(IEnumerable<IEndpointState> states)
+        {
+            Hubs = new List<IHub>();
+            States = states;
+        }
+
         public override IEnumerable<IEndpointState> States { get; set; }
         public override IEndpointState CurrentState { get; set; }
         public override bool DetermineNextState()
@@ -15,13 +21,17 @@ namespace MIPLIB.EndPoints.Input
             throw new NotImplementedException();
         }
 
-        public override IEnumerable<IHub> Hubs { get; set; }
+        public override IList<IHub> Hubs { get; set; }
         public override void Trigger(object state)
         {
             throw new NotImplementedException();
         }
 
         public override string Name { get; set; }
+        public override void SetHub(IHub hub)
+        {
+            Hubs.Add(hub);
+        }
 
         #endregion
     }

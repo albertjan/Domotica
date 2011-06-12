@@ -18,10 +18,25 @@ namespace MIP.Interfaces
         #region Implementation of IEndpoint
 
         public abstract IEnumerable<IEndpointState> States { get; set; }
-        public abstract IEndpointState CurrentState { get; set; }
+        private IEndpointState _currentState;
+        public IEndpointState CurrentState
+        {
+            get { return _currentState; }
+            set
+            {
+                InvokeStateChanged(new StateChangedEventArgs()
+                                       {
+                                           Endpoint = this,
+                                           Time = DateTime.Now
+                                       });
+                _currentState = value;
+            }
+        }
+
         public abstract bool DetermineNextState();
-        public abstract IEnumerable<IHub> Hubs { get; set; }
+        public abstract IList<IHub> Hubs { get; set; }
         public abstract string Name { get; set; }
+        public abstract void SetHub(IHub hub);
 
         #endregion
     }

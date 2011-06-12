@@ -7,7 +7,6 @@ namespace MIPLIB.EndPoints.Output
 {
     public class IthoVentilator : OutputEndpoint
     {
-        [Inject]
         public IthoVentilator (IEnumerable<IEndpointState> states)
         {
             States = states;
@@ -15,15 +14,19 @@ namespace MIPLIB.EndPoints.Output
         
         #region Overrides of OutputEndpoint
         public override IEnumerable<IEndpointState> States { get; set; }
-        public override IEndpointState CurrentState { get; set; }
+        //public IEndpointState CurrentState { get; set; }
         public override bool DetermineNextState()
         {
             throw new NotImplementedException();
         }
 
-        public override IEnumerable<IHub> Hubs { get; set; }
+        public override IList<IHub> Hubs { get; set; }
         public override string Name { get; set; }
-        
+        public override void SetHub(IHub hub)
+        {
+            Hubs.Add(hub);
+        }
+
         #endregion
     }
 }

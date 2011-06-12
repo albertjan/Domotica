@@ -13,13 +13,21 @@ namespace MIPLIB.Hubs
     {
         public SimpleStaticHub (IEnumerable<IEndpoint> endpoints)
         {
-            RegisteredEndPoints = endpoints;
+            RegisteredEndPoints = endpoints.ToList();
+            RegisteredEndPoints.First (e => e is Light).Name = "LampToilet";
+            RegisteredEndPoints.First (e => e is PulseSwitch).Name = "KnopToilet";
 
-            var e1 = RegisteredEndPoints.First (e => e is PulseSwitch);
-
-            e1.Name = "KnopToilet";
-
-            //RegisteredEndPoints.First (e => e is Light).Name = "LampToilet";
+                //= new List<IEndpoint>
+            //                          {
+            //                              new PulseSwitch(this)
+            //                                  {
+            //                                      Name = "KnopToilet"
+            //                                  },
+            //                              new Light(this)
+            //                                  {
+            //                                      Name = "LampToilet"
+            //                                  }
+            //                          };
 
             Rules = new List<IRule>
                         {
@@ -33,13 +41,25 @@ namespace MIPLIB.Hubs
 
         #region Implementation of IHub
 
-        public IEnumerable<IEndpoint> RegisteredEndPoints { get; set; }
+        private IEnumerable<IEndpoint> _registeredEndPoints;
+        public IEnumerable<IEndpoint> RegisteredEndPoints
+        {
+            get { return _registeredEndPoints; }
+            set
+            {
+                foreach (var endpoint in value)
+                {
+                    endpoint.SetHub(this);
+                }
+                _registeredEndPoints = value;
+            }
+        }
 
         public IList<IRule> Rules { get; set; }
 
         public void Trigger(IEndpoint endpoint)
         {
-            var actions = Rules.Where(r => r.HasFriend(endpoint)).Select(rule => rule.FireWithInput(endpoint));
+            var actions = Rules.Where(r => r.HasFriend(endpoint)).Select(rule => rule.FireWithInput(endpoint)).ToList();
         }
 
         #endregion
