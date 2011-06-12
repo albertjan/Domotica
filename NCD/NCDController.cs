@@ -17,15 +17,20 @@ namespace NCD
             CurrentState = new Dictionary<int, IEnumerable<bool>>();
             OutputStack = new Stack<ushort>();
             InputStack = new Stack<ushort>();
+            //On boot load all the states into the outputendpoints via the state mapper. 
+            //Select the hardware states and report those IN ORDER  to the endpoint state mapper.
+            //To get the current state.
             foreach (var hub in Hubs)
             {
                 foreach (var registeredEndPoint in hub.RegisteredEndPoints)
                 {
                     foreach (var couple in CouplingInformation.EndpointCouples)
                     {
-                        if (couple.Item1 == registeredEndPoint.Name)
+                        if (registeredEndPoint is OutputEndpoint && couple.Item1 == registeredEndPoint.Name)
                         {
-                            registeredEndPoint.CurrentState = couple.Item2.Mapper.DetermineState(CurrentState);
+                            var outputEndpoint = registeredEndPoint as OutputEndpoint;
+                            outputEndpoint.StateChanged += OutputEndpointStateChanged;
+                            outputEndpoint.CurrentState = couple.Item2.Mapper.DetermineState (CurrentState);
                         }
                     }
                 }
@@ -240,8 +245,12 @@ namespace NCD
         [Inject]
         public IEnumerable<IHub> Hubs { get; set; }
 
-        void NCDControllerStateChanged(object sender, StateChangedEventArgs eventArgs)
+        void OutputEndpointStateChanged(object sender, StateChangedEventArgs eventArgs)
         {
+            //Find the HardwareEndpointID's corresponding to the endpoint where the state has changed.
+            //Locate the HardwareEndpoint and ask the mapper for the corresponding state to put on the stack.
+            //put it on the stack and "There will be light!". Maybe we should be talking in messages here.
+            //To accomodate for dimmers and stuff
         //    var hwid = CouplingInformation.EndpointCouples.Where(c=>c.Item2.Type == HardwareEndpointType.Output).First(e => e.Item1 == sender).Item2.ID;
         //    var bank = ushort.Parse(hwid.Substring(1, hwid.IndexOf(":")));
         //    var relayid = ushort.Parse(hwid.Substring(hwid.IndexOf(":") + 1));
