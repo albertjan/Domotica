@@ -11,6 +11,8 @@ namespace HAL
     {
         void Initialize();
 
+        void InitializeEndpoints();
+
         void Start();
 
         void Stop();

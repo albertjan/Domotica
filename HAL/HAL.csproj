@@ -47,6 +47,7 @@
     <Compile Include="Endpoints\FourStateEndpoint.cs" />
     <Compile Include="Endpoints\GenericInputEndpoint.cs" />
     <Compile Include="EventHandlers.cs" />
+    <Compile Include="Factories\ControlFactory.cs" />
     <Compile Include="IControlMessage.cs" />
     <Compile Include="IEndPointCouplingInformation.cs" />
     <Compile Include="IEndpointStateMapper.cs" />

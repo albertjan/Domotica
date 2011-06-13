@@ -4,7 +4,12 @@ namespace NCD
 {
     public class NCDControllMessage : IControlMessage
     {
-        public NCDController NCDController { get; set; }
+        public NCDControllMessage(IHardwareController hardwareController)
+        {
+            HardwareController = hardwareController;
+        }
+
+        public IHardwareController HardwareController { get; set; }
 
         public int WaitTime { get; set; }
 
@@ -24,7 +29,7 @@ namespace NCD
             // | 0001 | 0000 | 0011 | 0100 |
 
             //var input = NCDController.OutputStack.Pop ();
-            NCDController.OutputStack.Push((ushort)(Relay + Bank << 4 + Status));
+            ((NCDController)HardwareController).OutputStack.Push((ushort)(Relay + Bank << 4 + Status));
         }
     }
 }

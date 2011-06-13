@@ -14,27 +14,14 @@ namespace NCD
     {
         public NCDController ()
         {
+            //Hubs = hubs;
             CurrentState = new Dictionary<int, IEnumerable<bool>>();
             OutputStack = new Stack<ushort>();
             InputStack = new Stack<ushort>();
             //On boot load all the states into the outputendpoints via the state mapper. 
             //Select the hardware states and report those IN ORDER  to the endpoint state mapper.
             //To get the current state.
-            foreach (var hub in Hubs)
-            {
-                foreach (var registeredEndPoint in hub.RegisteredEndPoints)
-                {
-                    foreach (var couple in CouplingInformation.EndpointCouples)
-                    {
-                        if (registeredEndPoint is OutputEndpoint && couple.Item1 == registeredEndPoint.Name)
-                        {
-                            var outputEndpoint = registeredEndPoint as OutputEndpoint;
-                            outputEndpoint.StateChanged += OutputEndpointStateChanged;
-                            outputEndpoint.CurrentState = couple.Item2.Mapper.DetermineState (CurrentState);
-                        }
-                    }
-                }
-            }
+
         }
 
         #region Controllerthread
@@ -195,6 +182,25 @@ namespace NCD
             if (!NCDComponent.IsOpen) throw new HardwareInitializationException();
         }
         
+        public void InitializeEndpoints()
+        {
+            foreach (var hub in Hubs)
+            {
+                foreach (var registeredEndPoint in hub.RegisteredEndPoints)
+                {
+                    foreach (var couple in CouplingInformation.EndpointCouples)
+                    {
+                        if (registeredEndPoint is OutputEndpoint && couple.Item1 == registeredEndPoint.Name)
+                        {
+                            var outputEndpoint = registeredEndPoint as OutputEndpoint;
+                            outputEndpoint.StateChanged += OutputEndpointStateChanged;
+                            outputEndpoint.CurrentState = couple.Item2.Mapper.DetermineState (SelectState (couple.Item2));
+                        }
+                    }
+                }
+            }
+        }
+
         public void Start()
         {
             Run = new Thread(Runner);
@@ -259,6 +265,20 @@ namespace NCD
         //    //var bank = (byte)(input & 4080 >> 4);
         //    //var status = (byte)(input >> 12);
         }
+
+        private Dictionary<int, bool> SelectState(IHardwareEndpoint endpoint)
+        {
+            var retval = new Dictionary<int, bool>();
+            foreach (var hardwareEndpointIndentifier in endpoint.HardwareEndpointIndentifiers)
+            {
+                var hwid = hardwareEndpointIndentifier.ID;
+                var bank = ushort.Parse(hwid.Substring(1, hwid.IndexOf(":") - 1));
+                var relayid = ushort.Parse(hwid.Substring(hwid.IndexOf(":") + 1));
+                retval.Add(CurrentState.First(kv => kv.Key == bank).Key,
+                           CurrentState.First(kv => kv.Key == bank).Value.ElementAt(relayid));
+            }
+            return retval;
+        } 
 
         public void Dispose()
         {

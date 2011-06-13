@@ -18,7 +18,7 @@ namespace Domotica
             hwc.Initialize();
             hwc.Start();
             //hwc.Hubs.Add(kernel.Get<IHub>());
-
+            hwc.InitializeEndpoints();
 
             //var p = kernel.Get<FourStateEndPoint>();
             Console.WriteLine("hit return to quit");

@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using HAL;
+using HAL.Factories;
 using MIP.Interfaces;
+using MIPLIB.States;
 using Ninject;
 
 namespace NCD
@@ -13,7 +16,7 @@ namespace NCD
             HandledStates = handledStates;
         }
 
-        public IEndpointState DetermineState(IDictionary<int, IEnumerable<bool>> currentState)
+        public IEndpointState DetermineState(IDictionary<int, bool> currentState)
         {
             throw new NotImplementedException();
         }
@@ -22,8 +25,8 @@ namespace NCD
 
         public IEnumerable<IControlMessage> GetControllMessagesForEndpointState(IEndpointState state, IHardwareEndpointIndentifier hwid)
         {
-            yield return new NCDControllMessage();
-        }
+            yield return ControlFactory.GetControlMessage();
+        } 
     }
 
     public class SwitchedEndpointStateMapper : IEndpointStateMapper
@@ -33,28 +36,27 @@ namespace NCD
             HandledStates = handledStates;
         }
 
-        public IEndpointState DetermineState(IDictionary<int, IEnumerable<bool>> currentState)
+        public IEndpointState DetermineState(IDictionary<int, bool> currentState)
         {
-            throw new NotImplementedException();
+            return currentState.First ().Value ? HandledStates.First (s => s is On) : HandledStates.First (s => s is Off);
         }
 
         public IEnumerable<IEndpointState> HandledStates { get; set; }
 
         public IEnumerable<IControlMessage> GetControllMessagesForEndpointState(IEndpointState state, IHardwareEndpointIndentifier hwid)
         {
-            yield return new NCDControllMessage ();
+            yield return ControlFactory.GetControlMessage ();
         }
     }
 
     public class IthoVentilatorStateMapper : IEndpointStateMapper
     {
-        [Inject]
         public IthoVentilatorStateMapper (IEnumerable<IEndpointState> handledStates)
         {
             HandledStates = handledStates;
         }
 
-        public IEndpointState DetermineState(IDictionary<int, IEnumerable<bool>> currentState)
+        public IEndpointState DetermineState(IDictionary<int, bool> currentState)
         {
             throw new NotImplementedException();
         }
@@ -63,7 +65,7 @@ namespace NCD
         
         public IEnumerable<IControlMessage> GetControllMessagesForEndpointState(IEndpointState state, IHardwareEndpointIndentifier hwid)
         {
-            yield return new NCDControllMessage();
+            yield return ControlFactory.GetControlMessage();
         }
     }
 }
