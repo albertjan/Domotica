@@ -16,6 +16,16 @@ namespace NCD
             return true;
         }
 
+
+        /// <summary>
+        /// Load the Hardware Software bindings
+        /// 
+        /// A binding basicly consists of the following items:
+        ///     -A name (this is used throuhg out the system for referencing this endpoint)
+        ///     -A type (what kind of thing is it in the hardware, might be all kinds of things to all kinds of people)
+        ///     -A list of hardware identifiers (One hardware endpoint may consist of several endpoint sockets)
+        /// </summary>
+        /// <returns></returns>
         public IEndPointCouplingInformation Load()
         {
             return new NCDEndPointCouplingInformation

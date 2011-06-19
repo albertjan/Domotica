@@ -24,12 +24,12 @@ namespace MIP.Interfaces
             get { return _currentState; }
             set
             {
+                _currentState = value;
                 InvokeStateChanged(new StateChangedEventArgs()
                                        {
                                            Endpoint = this,
                                            Time = DateTime.Now
                                        });
-                _currentState = value;
             }
         }
 

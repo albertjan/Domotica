@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Threading;
 using HAL;
 using MIP.Interfaces;
@@ -51,6 +52,8 @@ namespace NCD
                             controller.NCDComponent.ProXR.RelayBanks.TurnOffRelayInBank(relay, bank);
                         else
                             controller.NCDComponent.ProXR.RelayBanks.TurnOnRelayInBank(relay, bank);
+
+                        controller.NCDComponent.ProXR.RelayBanks.GetRelaysStatusInAllBanks();
                     }
                     else
                     {
@@ -128,7 +131,7 @@ namespace NCD
                                         var endpoint = hub.RegisteredEndPoints.First(e => e.Name == couple1.Item1);
                                         hub.Trigger(endpoint, couple.Item2.Mapper.DetermineState(SelectState(couple.Item2)));
                                     }
-                                    Console.WriteLine(couple.Item1);
+                                    //Console.WriteLine(couple.Item1);
                                 }
                             }
                         }
@@ -269,12 +272,6 @@ namespace NCD
                 Thread.Sleep(controlMessage.WaitTime);
                 controlMessage.Enter();
             }
-            //    var bank = ushort.Parse(hwid.Substring(1, hwid.IndexOf(":")));
-            //    var relayid = ushort.Parse(hwid.Substring(hwid.IndexOf(":") + 1));
-            //    //var state = eventArgs.Endpoint.State == ? 
-            //    //var relay = (byte)(input & 15);
-            //    //var bank = (byte)(input & 4080 >> 4);
-            //    //var status = (byte)(input >> 12);
         }
 
         private Dictionary<int, bool> SelectState(IHardwareEndpoint endpoint)

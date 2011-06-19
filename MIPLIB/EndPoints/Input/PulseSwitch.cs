@@ -36,7 +36,7 @@ namespace MIPLIB.EndPoints.Input
 
         public override bool ShouldTriggerRule()
         {
-            return CurrentState is In;
+            return CurrentState is Out;
         }
 
         #endregion
