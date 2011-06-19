@@ -22,12 +22,16 @@ namespace MIPLIB.Hubs.Rules
         {
             if (Friends.Count == 2)
             {
-                var friendToCall = Friends.First(f => f != endpoint);
+                if (endpoint.ShouldTriggerRule ())
+                {
+                    var friendToCall = Friends.First(f => f != endpoint);
 
-                if (!friendToCall.DetermineNextState())
-                    throw new EndpointException ("Next state not determined.", friendToCall);
+                    if (!friendToCall.DetermineNextState())
+                        throw new EndpointException("Next state not determined.", friendToCall);
 
-                return true;
+                    return true;
+                }
+                return false;
             }
             throw new RuleException("Basic Rules can only handle 2 endpoints");
         }

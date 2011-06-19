@@ -10,5 +10,6 @@ namespace MIP.Interfaces
         IList<IHub> Hubs { get; set; }
         string Name { get; set; }
         void SetHub(IHub hub);
+        bool ShouldTriggerRule();
     }
 }

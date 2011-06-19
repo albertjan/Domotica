@@ -29,7 +29,7 @@ namespace NCD
             // | 0001 | 0000 | 0011 | 0100 |
 
             //var input = NCDController.OutputStack.Pop ();
-            ((NCDController)HardwareController).OutputStack.Push((ushort)(Relay + Bank << 4 + Status));
+            ((NCDController)HardwareController).OutputStack.Push((ushort)((Status << 12) + (Bank << 8) + Relay ));
         }
     }
 }

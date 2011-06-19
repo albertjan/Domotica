@@ -12,5 +12,6 @@ namespace MIP.Interfaces
         public abstract void Trigger(object state);
         public abstract string Name { get; set; }
         public abstract void SetHub(IHub hub);
+        public abstract bool ShouldTriggerRule();
     }
 }

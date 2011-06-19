@@ -40,7 +40,7 @@ namespace NCD
                         //  0-1    0-32          0-7
                         // | 0000 | 0000 | 0000 | 0000 |
 
-                        //turn relay 4 on bank 3 on
+                        //  turn relay 4 on bank 3 on
                         // | 0001 | 0000 | 0011 | 0100 |
 
                         var input = controller.OutputStack.Pop();
@@ -125,7 +125,8 @@ namespace NCD
                                     foreach (var hub in Hubs)
                                     {
                                         var couple1 = couple;
-                                        hub.Trigger(hub.RegisteredEndPoints.First(e => e.Name == couple1.Item1));
+                                        var endpoint = hub.RegisteredEndPoints.First(e => e.Name == couple1.Item1);
+                                        hub.Trigger(endpoint, couple.Item2.Mapper.DetermineState(SelectState(couple.Item2)));
                                     }
                                     Console.WriteLine(couple.Item1);
                                 }
@@ -258,13 +259,22 @@ namespace NCD
             //Locate the HardwareEndpoint and ask the mapper for the corresponding state to put on the stack.
             //put it on the stack and "There will be light!". Maybe we should be talking in messages here.
             //To accomodate for dimmers and stuff
-        //    var hwid = CouplingInformation.EndpointCouples.Where(c=>c.Item2.Type == HardwareEndpointType.Output).First(e => e.Item1 == sender).Item2.ID;
-        //    var bank = ushort.Parse(hwid.Substring(1, hwid.IndexOf(":")));
-        //    var relayid = ushort.Parse(hwid.Substring(hwid.IndexOf(":") + 1));
-        //    //var state = eventArgs.Endpoint.State == ? 
-        //    //var relay = (byte)(input & 15);
-        //    //var bank = (byte)(input & 4080 >> 4);
-        //    //var status = (byte)(input >> 12);
+            //Locate hardware endpoint
+            var hwe = CouplingInformation.EndpointCouples.First(c => c.Item1 == eventArgs.Endpoint.Name).Item2;
+            //ask it for some control messages
+            var contolMessages = hwe.Mapper.GetControllMessagesForEndpointState(eventArgs.Endpoint.CurrentState, hwe);
+
+            foreach (var controlMessage in contolMessages)
+            {
+                Thread.Sleep(controlMessage.WaitTime);
+                controlMessage.Enter();
+            }
+            //    var bank = ushort.Parse(hwid.Substring(1, hwid.IndexOf(":")));
+            //    var relayid = ushort.Parse(hwid.Substring(hwid.IndexOf(":") + 1));
+            //    //var state = eventArgs.Endpoint.State == ? 
+            //    //var relay = (byte)(input & 15);
+            //    //var bank = (byte)(input & 4080 >> 4);
+            //    //var status = (byte)(input >> 12);
         }
 
         private Dictionary<int, bool> SelectState(IHardwareEndpoint endpoint)

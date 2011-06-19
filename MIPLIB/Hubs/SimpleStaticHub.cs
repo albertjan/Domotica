@@ -57,8 +57,9 @@ namespace MIPLIB.Hubs
 
         public IList<IRule> Rules { get; set; }
 
-        public void Trigger(IEndpoint endpoint)
+        public void Trigger(IEndpoint endpoint, IEndpointState state)
         {
+            endpoint.CurrentState = state;
             var actions = Rules.Where(r => r.HasFriend(endpoint)).Select(rule => rule.FireWithInput(endpoint)).ToList();
         }
 

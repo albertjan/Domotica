@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using MIP.Interfaces;
+using MIPLIB.States;
 
 namespace MIPLIB.EndPoints.Input
 {
@@ -31,6 +32,11 @@ namespace MIPLIB.EndPoints.Input
         public override void SetHub(IHub hub)
         {
             Hubs.Add(hub);
+        }
+
+        public override bool ShouldTriggerRule()
+        {
+            return CurrentState is In;
         }
 
         #endregion

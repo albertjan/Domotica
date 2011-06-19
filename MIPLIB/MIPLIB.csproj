@@ -52,6 +52,7 @@
     <Compile Include="EndPoints\Output\Light.cs" />
     <Compile Include="Hubs\Rules\BasicRule.cs" />
     <Compile Include="Hubs\SimpleStaticHub.cs" />
+    <Compile Include="States\InputStates.cs" />
     <Compile Include="States\OnOff.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="States\VentilatorStates.cs" />

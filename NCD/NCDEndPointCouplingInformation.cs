@@ -22,9 +22,9 @@ namespace NCD
             {
                 EndpointCouples = new List<Tuple<string,IHardwareEndpoint>>
                 {
-                    new Tuple<string, IHardwareEndpoint>("KnopToilet", new GenericInputEndpoint
-                    {
-                        HardwareEndpointIndentifiers = new List<IHardwareEndpointIndentifier> 
+                    new Tuple<string, IHardwareEndpoint>("KnopToilet", ControlFactory.GetEndpoint<GenericInputEndpoint> 
+                    (
+                        new List<IHardwareEndpointIndentifier> 
                         {
                             new NCDHardwareIdentifier
                                 {
@@ -32,13 +32,13 @@ namespace NCD
                                     Type = HardwareEndpointType.Input
                                 }
                         }
-                    }),
+                    )),
                     new Tuple<string, IHardwareEndpoint>("LampToilet", ControlFactory.GetEndpoint<SwitchedEndpoint>
                     (
                         new List<IHardwareEndpointIndentifier> {
                             new NCDHardwareIdentifier
                                 {
-                                    ID = "B0:0",
+                                    ID = "B1:0",
                                     Type = HardwareEndpointType.Output
                                 }
                             }

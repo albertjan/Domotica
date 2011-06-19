@@ -4,7 +4,8 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using HAL;
-using MIP.Interfaces;
+ using HAL.Endpoints;
+ using MIP.Interfaces;
  using MIPLIB.EndPoints.Input;
  using MIPLIB.EndPoints.Output;
  using MIPLIB.Hubs;
@@ -24,7 +25,7 @@ namespace NinjectionModules
     {
         public override void Load ()
         {
-            Bind<IHardwareController> ().To<NCDController> ();
+            Bind<IHardwareController> ().To<NCDController> ().InSingletonScope();
 
             Bind<IHardwareEndpoint>().To<SwitchedEndpoint>();
 
@@ -40,10 +41,14 @@ namespace NinjectionModules
 
             Bind<IEndpointStateMapper> ().To<DimmedEndpointStateMapper> ().WhenTargetHas<DimmerAttribute> ();
             Bind<IEndpointStateMapper> ().To<SwitchedEndpointStateMapper> ().WhenTargetHas<SwitchAttribute> ();
+            Bind<IEndpointStateMapper> ().To<GenericInputEndpointStateMapper> ().WhenTargetHas<InputAttribute> ();
             Bind<IEndpointStateMapper> ().To<IthoVentilatorStateMapper> ().WhenTargetHas<FourStateAttribute>();
 
             Bind<IControlMessage> ().To<NCDControllMessage> ();
             Bind<IHardwareEndpointIndentifier> ().To<NCDHardwareIdentifier>();
+
+            Bind<IEndpointState> ().To<In> ().WhenInjectedInto (typeof (GenericInputEndpoint));
+            Bind<IEndpointState> ().To<Out> ().WhenInjectedInto (typeof (GenericInputEndpoint));
 
             Bind<IEndpointState> ().To<On> ().WhenInjectedInto (typeof (Light));
             Bind<IEndpointState> ().To<Off> ().WhenInjectedInto (typeof (Light));
@@ -52,7 +57,10 @@ namespace NinjectionModules
             Bind<IEndpointState> ().To<Medium> ().WhenInjectedInto (typeof (IthoVentilator));
             Bind<IEndpointState> ().To<High> ().WhenInjectedInto (typeof (IthoVentilator));
             Bind<IEndpointState> ().To<Off> ().WhenInjectedInto (typeof (IthoVentilator));
-            
+
+            Bind<IEndpointState> ().To<In> ().WhenInjectedInto (typeof (GenericInputEndpointStateMapper));
+            Bind<IEndpointState> ().To<Out> ().WhenInjectedInto (typeof (GenericInputEndpointStateMapper));
+
             Bind<IEndpointState> ().To<On> ().WhenInjectedInto (typeof (SwitchedEndpointStateMapper));
             Bind<IEndpointState> ().To<Off> ().WhenInjectedInto (typeof (SwitchedEndpointStateMapper));
             

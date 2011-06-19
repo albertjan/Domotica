@@ -8,6 +8,6 @@ namespace MIP.Interfaces
 
         IList<IRule> Rules { get; set; }
 
-        void Trigger(IEndpoint endpoint);
+        void Trigger(IEndpoint endpoint, IEndpointState state);
     }
 }

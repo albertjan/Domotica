@@ -10,7 +10,6 @@ namespace Domotica
 {
     class Program
     {
-        [STAThread]
         public static void Main(string[] args)
         {
             IKernel kernel = new StandardKernel();

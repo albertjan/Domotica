@@ -37,6 +37,10 @@ namespace MIP.Interfaces
         public abstract IList<IHub> Hubs { get; set; }
         public abstract string Name { get; set; }
         public abstract void SetHub(IHub hub);
+        public bool ShouldTriggerRule()
+        {
+            throw new NotImplementedException();
+        }
 
         #endregion
     }

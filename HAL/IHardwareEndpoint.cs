@@ -18,4 +18,6 @@ namespace HAL
     public class SwitchAttribute : Attribute { }
 
     public class FourStateAttribute : Attribute { }
+
+    public class InputAttribute : Attribute {}
 }

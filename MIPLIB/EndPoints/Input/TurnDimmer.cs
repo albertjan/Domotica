@@ -32,6 +32,11 @@ namespace MIPLIB.EndPoints.Input
             Hubs.Add(hub);
         }
 
+        public override bool ShouldTriggerRule()
+        {
+            return true;
+        }
+
         #endregion
     }
 }
