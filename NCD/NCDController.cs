@@ -175,7 +175,6 @@ namespace NCD
                 BasicConfiguration.Save();
                 throw new Exception("EmptyConfigurationException, Please fill the configuration with the right information and start again.");
             }
-            CoupleEndpoints(new NCDEndPointCouplingInformation());
             NCDComponent = new NCDComponent {BaudRate = 38400, PortName = BasicConfiguration.Configuration.Comport};
             //ncdComponent.Port = 1;
             NCDComponent.OpenPort();
@@ -184,6 +183,7 @@ namespace NCD
         
         public void InitializeEndpoints()
         {
+            CoupleEndpoints (new NCDEndPointCouplingInformation ());
             foreach (var hub in Hubs)
             {
                 foreach (var registeredEndPoint in hub.RegisteredEndPoints)
@@ -253,6 +253,7 @@ namespace NCD
 
         void OutputEndpointStateChanged(object sender, StateChangedEventArgs eventArgs)
         {
+            Console.WriteLine(eventArgs.Endpoint.Name + " is changed to " + eventArgs.Endpoint.CurrentState);
             //Find the HardwareEndpointID's corresponding to the endpoint where the state has changed.
             //Locate the HardwareEndpoint and ask the mapper for the corresponding state to put on the stack.
             //put it on the stack and "There will be light!". Maybe we should be talking in messages here.

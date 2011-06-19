@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using MIP.Interfaces;
 using Ninject;
 
@@ -19,7 +20,8 @@ namespace MIPLIB.EndPoints.Output
         //public override IEndpointState CurrentState { get; set; }
         public override bool DetermineNextState()
         {
-              throw new NotImplementedException();
+            CurrentState = States.First(s => s.GetType() != CurrentState.GetType());
+            return true;
         }
 
         public override IList<IHub> Hubs { get; set; }   

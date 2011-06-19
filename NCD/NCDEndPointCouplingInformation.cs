@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using HAL;
 using HAL.Endpoints;
+using HAL.Factories;
 using MIP.Interfaces;
 
 namespace NCD
@@ -32,16 +33,16 @@ namespace NCD
                                 }
                         }
                     }),
-                    new Tuple<string, IHardwareEndpoint>("LampToilet", new SwitchedEndpoint
-                    {
-                        HardwareEndpointIndentifiers = new List<IHardwareEndpointIndentifier> {
-                        new NCDHardwareIdentifier
-                            {
-                                ID = "B0:0",
-                                Type = HardwareEndpointType.Output
+                    new Tuple<string, IHardwareEndpoint>("LampToilet", ControlFactory.GetEndpoint<SwitchedEndpoint>
+                    (
+                        new List<IHardwareEndpointIndentifier> {
+                            new NCDHardwareIdentifier
+                                {
+                                    ID = "B0:0",
+                                    Type = HardwareEndpointType.Output
+                                }
                             }
-                        }
-                    })
+                        ))
                 }
             };
         }
