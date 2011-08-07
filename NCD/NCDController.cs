@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Reflection;
 using System.Threading;
 using HAL;
 using MIP.Interfaces;
@@ -21,7 +19,6 @@ namespace NCD
             CurrentOutputState = new Dictionary<int, IEnumerable<bool>>();
             OutputStack = new Stack<ushort>();
             InputStack = new Stack<ushort>();
-
         }
 
         #region Controllerthread
@@ -62,9 +59,7 @@ namespace NCD
                              contactClosureBank < BasicConfiguration.Configuration.NumberOfContactClosureBanks;
                              contactClosureBank++)
                         {
-                            controller.InputStack.Push(
-                                (ushort)
-                                (((byte) contactClosureBank << 8) +
+                            controller.InputStack.Push((ushort)(((byte) contactClosureBank << 8) +
                                  controller.NCDComponent.ProXR.Scan.ScanValue((byte) contactClosureBank)));
                         }
                     }
@@ -82,7 +77,7 @@ namespace NCD
 
         #region Inputthread
 
-        public Stack<ushort> InputStack { get; set; }
+        private Stack<ushort> InputStack { get; set; }
 
         private static void InputRunner(object ncdController)
         {
@@ -108,9 +103,9 @@ namespace NCD
             }
         }
 
-        public IDictionary<int, IEnumerable<bool>> CurrentInputState { get; set; }
+        private IDictionary<int, IEnumerable<bool>> CurrentInputState { get; set; }
 
-        public IDictionary<int, IEnumerable<bool>> CurrentOutputState { get; set; }
+        private IDictionary<int, IEnumerable<bool>> CurrentOutputState { get; set; }
 
         private void ReportOutputStates (int bank, IEnumerable<bool> states)
         {
@@ -119,7 +114,6 @@ namespace NCD
                 var curBankState = CurrentOutputState[bank];
                 for (var i = 0; i < 8; i++)
                 {
-                    var i1 = i;
                     if (curBankState.ElementAt (i) != states.ElementAt (i))
                     {
                         CurrentOutputState[bank] = states;
