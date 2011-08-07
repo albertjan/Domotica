@@ -45,9 +45,17 @@ namespace NCD
                         var bank = (byte)(input & 4080 >> 4);
                         var status = (byte)(input >> 12);
                         if (status == 0)
-                            controller.NCDComponent.ProXR.RelayBanks.TurnOffRelayInBank (relay, bank);
+                        {
+                            controller.NCDComponent.ProXR.RelayBanks.SelectBank(bank);
+                            controller.NCDComponent.ProXR.RelayBanks.TurnOffRelay(relay);
+                            //controller.NCDComponent.ProXR.RelayBanks.TurnOffRelayInBank(relay, bank);
+                        }
                         else
-                            controller.NCDComponent.ProXR.RelayBanks.TurnOnRelayInBank (relay, bank);
+                        {
+                            controller.NCDComponent.ProXR.RelayBanks.SelectBank (bank);
+                            controller.NCDComponent.ProXR.RelayBanks.TurnOnRelay (relay);
+                            //controller.NCDComponent.ProXR.RelayBanks.TurnOnRelayInBank (relay, bank);
+                        }
                     }
                     else
                     {
@@ -134,7 +142,6 @@ namespace NCD
                 var curBankState = CurrentInputState[bank];
                 for (var i = 0; i < 8; i++)
                 {
-                    var i1 = i;
                     if (curBankState.ElementAt(i) != states.ElementAt(i))
                     {
                         CurrentInputState[bank] = states;
@@ -176,13 +183,13 @@ namespace NCD
             yield return (value & 128) > 0 ? true : false;
         }
 
-        public Thread Input { get; set; }
+        private Thread Input { get; set; }
 
         #endregion
 
-        public Stack<ushort> OutputStack { get; set; }
+        public Stack<ushort> OutputStack { get; private set; }
 
-        public NCDComponent NCDComponent { get; set; }
+        private NCDComponent NCDComponent { get; set; }
 
         public void Initialize()
         {
@@ -256,7 +263,7 @@ namespace NCD
             Input.Abort();
         }
 
-        public IEndPointCouplingInformation CouplingInformation { get; set; }
+        private IEndPointCouplingInformation CouplingInformation { get; set; }
 
         public IEnumerable<IHardwareEndpointIndentifier> GetIdentifiers()
         {
@@ -311,7 +318,7 @@ namespace NCD
             }
         }
 
-        private static Dictionary<int, bool> SelectState(IHardwareEndpoint endpoint, IDictionary<int, IEnumerable<bool>> currentState)
+        private static Dictionary<int, bool> SelectState(IHardwareEndpoint endpoint, IEnumerable<KeyValuePair<int, IEnumerable<bool>>> currentState)
         {
             var retval = new Dictionary<int, bool>();
             foreach (var hardwareEndpointIndentifier in endpoint.HardwareEndpointIndentifiers)

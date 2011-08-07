@@ -52,7 +52,28 @@ namespace NCD
                                     Type = HardwareEndpointType.Output
                                 }
                             }
-                        ))
+                    )),
+                    new Tuple<string, IHardwareEndpoint>("LedSpotToilet", ControlFactory.GetEndpoint<SwitchedEndpoint>
+                    (
+                        new List<IHardwareEndpointIndentifier> {
+                            new NCDHardwareIdentifier
+                                {
+                                    ID = "B1:1",
+                                    Type = HardwareEndpointType.Output
+                                }
+                            }
+                    )),
+                    new Tuple<string, IHardwareEndpoint>("KnopToiletBuiten", ControlFactory.GetEndpoint<GenericInputEndpoint> 
+                    (
+                        new List<IHardwareEndpointIndentifier> 
+                        {
+                            new NCDHardwareIdentifier
+                                {
+                                    ID = "B0:1",
+                                    Type = HardwareEndpointType.Input
+                                }
+                        }
+                    )),
                 }
             };
         }

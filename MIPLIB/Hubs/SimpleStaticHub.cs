@@ -14,8 +14,10 @@ namespace MIPLIB.Hubs
         public SimpleStaticHub (IEnumerable<IEndpoint> endpoints)
         {
             RegisteredEndPoints = endpoints.ToList();
-            RegisteredEndPoints.First (e => e is Light).Name = "LampToilet";
-            RegisteredEndPoints.First (e => e is PulseSwitch).Name = "KnopToilet";
+            RegisteredEndPoints.Where (e => e is Light).ToList()[0].Name = "LampToilet";
+            RegisteredEndPoints.Where (e => e is PulseSwitch).ToList ()[0].Name = "KnopToilet";
+            RegisteredEndPoints.Where (e => e is Light).ToList ()[1].Name = "LedSpotToilet";
+            RegisteredEndPoints.Where (e => e is PulseSwitch).ToList ()[1].Name = "KnopToiletBuiten";
 
                 //= new List<IEndpoint>
             //                          {
@@ -34,7 +36,12 @@ namespace MIPLIB.Hubs
                             new BasicRule
                                 {
                                     Hub = this,
-                                    Friends = new List<IEndpoint> { RegisteredEndPoints.First(e => e is PulseSwitch), RegisteredEndPoints.First(e => e is Light) }
+                                    Friends = new List<IEndpoint> { RegisteredEndPoints.First(e => e.Name == "KnopToilet"), RegisteredEndPoints.First(e => e.Name == "LampToilet") }
+                                },
+                            new BasicRule
+                                {
+                                    Hub = this,
+                                    Friends = new List<IEndpoint> { RegisteredEndPoints.First(e => e.Name == "KnopToiletBuiten"), RegisteredEndPoints.First(e => e.Name == "LedSpotToilet") }
                                 }
                         };
         }

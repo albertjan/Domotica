@@ -35,6 +35,8 @@ namespace NinjectionModules
 
             Bind<IEndpoint> ().To<Light> ().WhenInjectedInto(typeof (SimpleStaticHub));
             Bind<IEndpoint> ().To<PulseSwitch> ().WhenInjectedInto (typeof (SimpleStaticHub));
+            Bind<IEndpoint> ().To<Light> ().WhenInjectedInto (typeof (SimpleStaticHub));
+            Bind<IEndpoint> ().To<PulseSwitch> ().WhenInjectedInto (typeof (SimpleStaticHub));
             //Bind<IEndpoint> ().To<Light> ().WhenInjectedInto (typeof (SimpleStaticHub));
             //Bind<IEndpoint> ().To<Light> ().WhenInjectedInto (typeof (SimpleStaticHub));
 
