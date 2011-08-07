@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -16,12 +17,10 @@ namespace NCD
         public NCDController ()
         {
             //Hubs = hubs;
-            CurrentState = new Dictionary<int, IEnumerable<bool>>();
+            CurrentInputState = new Dictionary<int, IEnumerable<bool>>();
+            CurrentOutputState = new Dictionary<int, IEnumerable<bool>>();
             OutputStack = new Stack<ushort>();
             InputStack = new Stack<ushort>();
-            //On boot load all the states into the outputendpoints via the state mapper. 
-            //Select the hardware states and report those IN ORDER  to the endpoint state mapper.
-            //To get the current state.
 
         }
 
@@ -44,25 +43,29 @@ namespace NCD
                         //  turn relay 4 on bank 3 on
                         // | 0001 | 0000 | 0011 | 0100 |
 
-                        var input = controller.OutputStack.Pop();
-                        var relay = (byte) (input & 15);
-                        var bank = (byte) (input & 4080 >> 4);
-                        var status = (byte) (input >> 12);
+                        var input = controller.OutputStack.Pop ();
+                        var relay = (byte)(input & 15);
+                        var bank = (byte)(input & 4080 >> 4);
+                        var status = (byte)(input >> 12);
                         if (status == 0)
-                            controller.NCDComponent.ProXR.RelayBanks.TurnOffRelayInBank(relay, bank);
+                            controller.NCDComponent.ProXR.RelayBanks.TurnOffRelayInBank (relay, bank);
                         else
-                            controller.NCDComponent.ProXR.RelayBanks.TurnOnRelayInBank(relay, bank);
-
-                        controller.NCDComponent.ProXR.RelayBanks.GetRelaysStatusInAllBanks();
+                            controller.NCDComponent.ProXR.RelayBanks.TurnOnRelayInBank (relay, bank);
                     }
                     else
                     {
+                        //--------Input states
                         //| bank        |       value |
                         //| 0000 | 0000 | 0000 | 0000 |
-                        
-                        for (var contactClosureBank = 0; contactClosureBank < BasicConfiguration.Configuration.NumberOfContactClosureBanks; contactClosureBank++)
+
+                        for (var contactClosureBank = 0;
+                             contactClosureBank < BasicConfiguration.Configuration.NumberOfContactClosureBanks;
+                             contactClosureBank++)
                         {
-                            controller.InputStack.Push((ushort)(((byte)contactClosureBank << 8) + controller.NCDComponent.ProXR.Scan.ScanValue((byte)contactClosureBank)));
+                            controller.InputStack.Push(
+                                (ushort)
+                                (((byte) contactClosureBank << 8) +
+                                 controller.NCDComponent.ProXR.Scan.ScanValue((byte) contactClosureBank)));
                         }
                     }
                 }      
@@ -93,7 +96,7 @@ namespace NCD
                     {
                         var val = controller.InputStack.Pop();
                         var bank = (val & 0xFF00) >> 8;
-                        var value = (val & 0x00FF);
+                        var value = (byte)(val & 0x00FF);
                         controller.ReportStates(bank, ParseValue(value));
                     }   
                     Thread.Sleep(5);
@@ -105,19 +108,42 @@ namespace NCD
             }
         }
 
-        public IDictionary<int, IEnumerable<bool>> CurrentState { get; set; }
+        public IDictionary<int, IEnumerable<bool>> CurrentInputState { get; set; }
+
+        public IDictionary<int, IEnumerable<bool>> CurrentOutputState { get; set; }
+
+        private void ReportOutputStates (int bank, IEnumerable<bool> states)
+        {
+            if (CurrentOutputState.ContainsKey (bank))
+            {
+                var curBankState = CurrentOutputState[bank];
+                for (var i = 0; i < 8; i++)
+                {
+                    var i1 = i;
+                    if (curBankState.ElementAt (i) != states.ElementAt (i))
+                    {
+                        CurrentOutputState[bank] = states;
+                        Console.WriteLine ("Endpoint " + i + " on Bank " + bank + " was changed at " + DateTime.Now.Second + ":" + DateTime.Now.Millisecond + " state " + states.ElementAt (i));
+                    }
+                }
+            }
+            else
+            {
+                CurrentOutputState.Add (bank, states);
+            }
+        }
 
         private void ReportStates(int bank, IEnumerable<bool> states)
         {
-            if (CurrentState.ContainsKey(bank))
+            if (CurrentInputState.ContainsKey(bank))
             {
-                var curBankState = CurrentState[bank];
+                var curBankState = CurrentInputState[bank];
                 for (var i = 0; i < 8; i++)
                 {
                     var i1 = i;
                     if (curBankState.ElementAt(i) != states.ElementAt(i))
                     {
-                        CurrentState[bank] = states;
+                        CurrentInputState[bank] = states;
                         Console.WriteLine("Button " + i + " on Bank " + bank + " was pushed at " + DateTime.Now.Second + ":" + DateTime.Now.Millisecond + " state " + states.ElementAt(i));
                         if (CouplingInformation != null)
                         {
@@ -129,7 +155,7 @@ namespace NCD
                                     {
                                         var couple1 = couple;
                                         var endpoint = hub.RegisteredEndPoints.First(e => e.Name == couple1.Item1);
-                                        hub.Trigger(endpoint, couple.Item2.Mapper.DetermineState(SelectState(couple.Item2)));
+                                        hub.Trigger(endpoint, couple.Item2.Mapper.DetermineState(SelectState(couple.Item2, CurrentInputState)));
                                     }
                                     //Console.WriteLine(couple.Item1);
                                 }
@@ -140,11 +166,11 @@ namespace NCD
             }
             else
             {
-                CurrentState.Add(bank, states);
+                CurrentInputState.Add(bank, states);
             }
         }
 
-        private static IEnumerable<bool> ParseValue(int value)
+        private static IEnumerable<bool> ParseValue(byte value)
         {
             yield return (value & 1) > 0 ? true : false;
             yield return (value & 2) > 0 ? true : false;
@@ -183,11 +209,23 @@ namespace NCD
             //ncdComponent.Port = 1;
             NCDComponent.OpenPort();
             if (!NCDComponent.IsOpen) throw new HardwareInitializationException();
+
+            //On boot load all the states into the outputendpoints via the state mapper. 
+            //Select the hardware states and report those IN ORDER  to the endpoint state mapper.
+            //To get the current state.
+
+            //-------Output states
+            var outputState = NCDComponent.ProXR.RelayBanks.GetRelaysStatusInAllBanks ().Take (BasicConfiguration.Configuration.AvailableRelayBanks.Count).ToList ();
+            for (var bank = 0; bank < outputState.Count (); bank++)
+            {
+                ReportOutputStates (bank + 1, ParseValue (outputState[bank]));
+            }
         }
         
         public void InitializeEndpoints()
         {
             CoupleEndpoints (new NCDEndPointCouplingInformation ());
+            WaitForState();
             foreach (var hub in Hubs)
             {
                 foreach (var registeredEndPoint in hub.RegisteredEndPoints)
@@ -198,11 +236,16 @@ namespace NCD
                         {
                             var outputEndpoint = registeredEndPoint as OutputEndpoint;
                             outputEndpoint.StateChanged += OutputEndpointStateChanged;
-                            outputEndpoint.CurrentState = couple.Item2.Mapper.DetermineState (SelectState (couple.Item2));
+                            outputEndpoint.CurrentState = couple.Item2.Mapper.DetermineState (SelectState (couple.Item2, CurrentOutputState));
                         }
                     }
                 }
             }
+        }
+
+        private void WaitForState()
+        {
+            while (CurrentOutputState.Count == 0 || CurrentInputState.Count == 0) Thread.Sleep(100);
         }
 
         public void Start()
@@ -274,7 +317,7 @@ namespace NCD
             }
         }
 
-        private Dictionary<int, bool> SelectState(IHardwareEndpoint endpoint)
+        private static Dictionary<int, bool> SelectState(IHardwareEndpoint endpoint, IDictionary<int, IEnumerable<bool>> currentState)
         {
             var retval = new Dictionary<int, bool>();
             foreach (var hardwareEndpointIndentifier in endpoint.HardwareEndpointIndentifiers)
@@ -282,8 +325,8 @@ namespace NCD
                 var hwid = hardwareEndpointIndentifier.ID;
                 var bank = ushort.Parse(hwid.Substring(1, hwid.IndexOf(":") - 1));
                 var relayid = ushort.Parse(hwid.Substring(hwid.IndexOf(":") + 1));
-                retval.Add(CurrentState.First(kv => kv.Key == bank).Key,
-                           CurrentState.First(kv => kv.Key == bank).Value.ElementAt(relayid));
+                retval.Add(currentState.First(kv => kv.Key == bank).Key,
+                           currentState.First(kv => kv.Key == bank).Value.ElementAt(relayid));
             }
             return retval;
         } 
