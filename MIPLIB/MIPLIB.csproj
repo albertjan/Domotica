@@ -45,6 +45,7 @@
   <ItemGroup>
     <Compile Include="EndPoints\DelayedTrigger.cs" />
     <Compile Include="EndPoints\Input\PulseSwitch.cs" />
+    <Compile Include="EndPoints\Input\SunRiseSunSetTimer.cs" />
     <Compile Include="EndPoints\Input\Switch.cs" />
     <Compile Include="EndPoints\Input\TurnDimmer.cs" />
     <Compile Include="EndPoints\Output\DimmableLight.cs" />
