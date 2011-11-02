@@ -65,7 +65,7 @@ namespace MIPLIB.EndPoints.Input
             return false;
         }
 
-        public ~SunRiseSunSetTimer()
+        ~SunRiseSunSetTimer()
         {
             ChronoThread.Abort();
         }
