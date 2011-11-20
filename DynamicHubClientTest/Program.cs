@@ -13,9 +13,19 @@ namespace DynamicHubClientTest
         {
             var client = ClientFactory.GetStorageClient();
             client.AddRule(new DynamicRule()
-                               {
-                                   Script = "hoi"
-                               },"test");
+            {
+                Script = "hoi"
+            }, "test");
+            client.AddRule (new DynamicRule ()
+            {
+                Script = "hoi"
+            }, "test2");
+
+            foreach (var dynamicRule in client.GetRules())
+            {
+                Console.WriteLine(dynamicRule.Script);
+            }
+            Console.ReadLine();
         }
     }
 }

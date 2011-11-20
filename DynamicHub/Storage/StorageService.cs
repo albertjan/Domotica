@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using Nancy;
 using ProtoBuf;
 using Raven.Client.Document;
@@ -32,8 +33,8 @@ namespace DynamicHub.Storage
                 
                 return new Response
                 {
-                    ContentType = "x-google-protocol-buggers",
-                    Contents = s => Serializer.Serialize(s, rules),
+                    ContentType = "application/x-google-protobuf",
+                    Contents = s => Serializer.Serialize(s, rules.ToList()),
                     StatusCode = HttpStatusCode.Accepted
                 };
             };
@@ -44,6 +45,7 @@ namespace DynamicHub.Storage
                 using (var session = Store.OpenSession())
                 {
                     session.Store(rule, (string)x.name);
+                    session.SaveChanges ();
                 }
                 return HttpStatusCode.Accepted;
             };

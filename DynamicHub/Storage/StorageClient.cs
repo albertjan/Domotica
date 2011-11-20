@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Text;
 using DRC;
 using ImpromptuInterface;
@@ -13,7 +14,7 @@ namespace DynamicHub.Storage
     {
         void AddRule(DynamicRule rule, string name);
         
-        IEnumerable<DynamicRule> GetRules();
+        List<DynamicRule> GetRules();
     }
 
     public static class ClientFactory
@@ -30,6 +31,8 @@ namespace DynamicHub.Storage
                     return ms.ToArray();
                 }
             });
+
+            client.GetRules.In = new Func<WebResponse, IEnumerable<DynamicRule>>(wr => Serializer.Deserialize<List<DynamicRule>>(wr.GetResponseStream()));
 
             //return null;
             return Impromptu.ActLike<IStorageClient> (client);
