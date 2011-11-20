@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Data;
 using System.IO;
 using System.Linq;
 using Nancy;
@@ -14,14 +15,12 @@ namespace DynamicHub.Storage
         {
             Store = new DocumentStore { Url = "http://localhost:8080" };
             Store.Initialize ();
+            
         }
 
         public StorageService()
         {
-            Get["/"] = x =>
-            {
-                return "Hello world!";
-            };
+            Get["/"] = x => "Hello world!";
 
             Get["/rules"] = x =>
             {
@@ -49,6 +48,20 @@ namespace DynamicHub.Storage
                 }
                 return HttpStatusCode.Accepted;
             };
+
+            Delete["/rule/{name}"] = _ =>
+            {
+                using (var session = Store.OpenSession())
+                {
+                    var rule = session.Load<DynamicRule>((string) _.name);
+                    if (rule != null)
+                        session.Delete(rule);
+
+                    session.SaveChanges();
+                }
+                return HttpStatusCode.Accepted;
+            };
+
         } 
     }
 }

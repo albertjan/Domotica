@@ -12,9 +12,26 @@ namespace DynamicHub.Storage
 {
     public interface IStorageClient
     {
+        #region Rules
+
         void AddRule(DynamicRule rule, string name);
         
-        List<DynamicRule> GetRules();
+        IEnumerable<DynamicRule> GetRules();
+
+        void DeleteRule(string name);
+        
+        #endregion
+
+        #region Endpoints
+
+        void AddEndpoint(dynamic endpoint, string name);
+
+        IEnumerable<EndPoint> GetEndpoints();
+
+        void DeleteEndpoint(string name);
+
+        #endregion
+
     }
 
     public static class ClientFactory
