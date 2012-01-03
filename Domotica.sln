@@ -19,6 +19,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DynamicHubServer", "Dynamic
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DynamicHubClientTest", "DynamicHubClientTest\DynamicHubClientTest.csproj", "{0ECDA4E5-EA84-4F74-B164-C0B2D143AA85}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DynamicAssemblyGenerator", "DynamicAssemblyGenerator\DynamicAssemblyGenerator.csproj", "{91988196-6D58-4D11-9697-76C1068B071C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -119,6 +121,16 @@ Global
 		{0ECDA4E5-EA84-4F74-B164-C0B2D143AA85}.Release|Mixed Platforms.Build.0 = Release|x86
 		{0ECDA4E5-EA84-4F74-B164-C0B2D143AA85}.Release|x86.ActiveCfg = Release|x86
 		{0ECDA4E5-EA84-4F74-B164-C0B2D143AA85}.Release|x86.Build.0 = Release|x86
+		{91988196-6D58-4D11-9697-76C1068B071C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{91988196-6D58-4D11-9697-76C1068B071C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{91988196-6D58-4D11-9697-76C1068B071C}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{91988196-6D58-4D11-9697-76C1068B071C}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{91988196-6D58-4D11-9697-76C1068B071C}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{91988196-6D58-4D11-9697-76C1068B071C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{91988196-6D58-4D11-9697-76C1068B071C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{91988196-6D58-4D11-9697-76C1068B071C}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{91988196-6D58-4D11-9697-76C1068B071C}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{91988196-6D58-4D11-9697-76C1068B071C}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

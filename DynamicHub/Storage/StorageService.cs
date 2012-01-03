@@ -16,6 +16,7 @@ namespace DynamicHub.Storage
             Store = new DocumentStore { Url = "http://localhost:8080" };
             Store.Initialize ();
             
+            
         }
 
         public StorageService()
