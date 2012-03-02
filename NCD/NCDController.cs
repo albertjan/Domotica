@@ -42,10 +42,11 @@ namespace NCD
 
                         var input = controller.OutputStack.Pop ();
                         var relay = (byte)(input & 15);
-                        var bank = (byte)(input & 4080 >> 4);
+                        var bank = (byte)((input & 4080) >> 4);
                         var status = (byte)(input >> 12);
                         if (status == 0)
                         {
+                            
                             controller.NCDComponent.ProXR.RelayBanks.SelectBank(bank);
                             controller.NCDComponent.ProXR.RelayBanks.TurnOffRelay(relay);
                             //controller.NCDComponent.ProXR.RelayBanks.TurnOffRelayInBank(relay, bank);
@@ -173,14 +174,14 @@ namespace NCD
 
         private static IEnumerable<bool> ParseValue(byte value)
         {
-            yield return (value & 1) > 0 ? true : false;
-            yield return (value & 2) > 0 ? true : false;
-            yield return (value & 4) > 0 ? true : false;
-            yield return (value & 8) > 0 ? true : false;
-            yield return (value & 16) > 0 ? true : false;
-            yield return (value & 32) > 0 ? true : false;
-            yield return (value & 64) > 0 ? true : false;
-            yield return (value & 128) > 0 ? true : false;
+            yield return (value & 1) > 0;
+            yield return (value & 2) > 0;
+            yield return (value & 4) > 0;
+            yield return (value & 8) > 0;
+            yield return (value & 16) > 0;
+            yield return (value & 32) > 0;
+            yield return (value & 64) > 0;
+            yield return (value & 128) > 0;
         }
 
         private Thread Input { get; set; }
@@ -309,9 +310,9 @@ namespace NCD
             //Locate hardware endpoint
             var hwe = CouplingInformation.EndpointCouples.First(c => c.Item1 == eventArgs.Endpoint.Name).Item2;
             //ask it for some control messages
-            var contolMessages = hwe.Mapper.GetControllMessagesForEndpointState(eventArgs.Endpoint.CurrentState, hwe);
+            var controlMessages = hwe.Mapper.GetControllMessagesForEndpointState(eventArgs.Endpoint.CurrentState, hwe);
 
-            foreach (var controlMessage in contolMessages)
+            foreach (var controlMessage in controlMessages)
             {
                 Thread.Sleep(controlMessage.WaitTime);
                 controlMessage.Enter();
