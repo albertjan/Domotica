@@ -74,6 +74,28 @@ namespace NCD
                                 }
                         }
                     )),
+                    new Tuple<string, IHardwareEndpoint>("VoorsteKnopGang", ControlFactory.GetEndpoint<GenericInputEndpoint> 
+                    (
+                        new List<IHardwareEndpointIndentifier> 
+                        {
+                            new NCDHardwareIdentifier
+                                {
+                                    ID = "B0:2",
+                                    Type = HardwareEndpointType.Input
+                                }
+                        }
+                    )),
+                    new Tuple<string, IHardwareEndpoint>("ZuuklampjesWoonkamer", ControlFactory.GetEndpoint<SwitchedEndpoint> 
+                    (
+                        new List<IHardwareEndpointIndentifier> 
+                        {
+                            new NCDHardwareIdentifier
+                                {
+                                    ID = "B1:2",
+                                    Type = HardwareEndpointType.Output
+                                }
+                        }
+                    )),
                 }
             };
         }

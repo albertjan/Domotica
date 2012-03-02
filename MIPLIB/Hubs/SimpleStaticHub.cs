@@ -18,18 +18,8 @@ namespace MIPLIB.Hubs
             RegisteredEndPoints.Where (e => e is PulseSwitch).ToList ()[0].Name = "KnopToilet";
             RegisteredEndPoints.Where (e => e is Light).ToList ()[1].Name = "LedSpotToilet";
             RegisteredEndPoints.Where (e => e is PulseSwitch).ToList ()[1].Name = "KnopToiletBuiten";
-
-                //= new List<IEndpoint>
-            //                          {
-            //                              new PulseSwitch(this)
-            //                                  {
-            //                                      Name = "KnopToilet"
-            //                                  },
-            //                              new Light(this)
-            //                                  {
-            //                                      Name = "LampToilet"
-            //                                  }
-            //                          };
+            RegisteredEndPoints.Where (e => e is Light).ToList ()[2].Name = "ZuuklampjesWoonkamer";
+            RegisteredEndPoints.Where (e => e is PulseSwitch).ToList ()[2].Name = "VoorsteKnopGang";
 
             Rules = new List<IRule>
                         {
@@ -42,6 +32,11 @@ namespace MIPLIB.Hubs
                                 {
                                     Hub = this,
                                     Friends = new List<IEndpoint> { RegisteredEndPoints.First(e => e.Name == "KnopToiletBuiten"), RegisteredEndPoints.First(e => e.Name == "LedSpotToilet") }
+                                },
+                            new BasicRule
+                                {
+                                    Hub = this,
+                                    Friends = new List<IEndpoint> { RegisteredEndPoints.First(e => e.Name == "VoorsteKnopGang"), RegisteredEndPoints.First(e => e.Name == "ZuuklampjesWoonkamer") }
                                 }
                         };
         }
