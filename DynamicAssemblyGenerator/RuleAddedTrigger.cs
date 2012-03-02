@@ -19,7 +19,6 @@ namespace DynamicAssemblyGenerator
                 {
                     sw.Write(document.ToString());                        
                 }
-                
             }
         }
     }
