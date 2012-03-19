@@ -43,6 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DSL\SwitchingDirectives.cs" />
     <Compile Include="EndPoints\DelayedTrigger.cs" />
     <Compile Include="EndPoints\Input\PulseSwitch.cs" />
     <Compile Include="EndPoints\Input\SunRiseSunSetTimer.cs" />
